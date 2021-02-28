@@ -141,5 +141,12 @@ this.imageRef = React.createRef();
 Then include that variable in the return statement in the JSX:
 <div ref={this.imageRef}><div/>
 
+useState primitive React hook:
+const [variable1, variable2] = useState(initial value);
+variable1 - peace of state we have track of
+variable2 - a function that we call to update our peace of state
+initial value - the initial value of the variable1
+
+
 
 
