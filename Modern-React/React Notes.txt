@@ -1,0 +1,145 @@
+To install React:
+npx create-react-app + the name of the app
+
+Import in index.js:
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+One workaround noted suggests putting the following in the index.js which enables reloading:
+
+    if (module.hot) {
+      module.hot.accept();
+    }
+
+Note - If you have spaces in your project directory name, reloading throughout the whole application can also fail.
+
+Create a React component:
+const App = function() {
+	return <div>Hi there!</div>
+};
+
+Take the react component and show it on the screen:
+ReactDOM.render(
+	<App />, document.querySelector('#root')
+);
+
+Styling examples for JSX:
+return (
+      <div>
+      <h1 style={{color: "red"}}>Hello Style!</h1>
+      <p>Add a little style!</p>
+      </div>
+);
+
+return (
+      <div>
+      <h1 style={{backgroundColor: "lightblue"}}>Hello Style!</h1>
+      <p>Add a little style!</p>
+      </div>
+);
+
+Inside the double curly braces we have a normal javascript object:
+{{ property1: '...', property2: '...'}}
+
+Use className instead class in JSX and htmlFor instead of for:
+<label className="label" htmlFor="name">
+
+JSX can reference javascript variables:
+const buttonText = "clickMe";
+<button>clickMe</button> without variable
+<button>{buttonText}</button> with variable
+
+or
+
+function getButtonText(){
+	return "clickMe";
+}
+<button>clickMe</button> without variable
+<button>{getButtonText()}</button> with variable function
+
+or
+
+const buttonText = {text: "clickMe"};
+<button>clickMe</button> without variable
+<button>{buttonText.text}</button> with variable object
+
+Problem installing react-app:
+npx create-react-app@latest 'your-project-name' --use-npm  // this is working
+
+or 
+
+I solved this using the following command.
+
+npm uninstall -g create-react-app
+
+then
+
+npm install -g create-react-app
+
+Find globaly installed npm packages:
+npm list -g
+
+Semantics link:
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+
+Props system:
+To pass data from the parent down to a child.
+The child cannot pass data to the parent directly!
+
+Custom date function attached to the prototipe:
+Date.prototype.formatMMDDYYYY = function(){
+    return (this.getMonth() + 1) + 
+    "/" +  this.getDate() +
+    "/" +  this.getFullYear();
+}
+
+After doing this, you can call formatMMDDYYY() on any instance of the Date object.
+
+Lifecycle methods:
+componentDidMount()
+componentDidUpdate()
+componentWillUnmount()
+shouldComponentUpdate()
+getDerivedStateFromProps()
+getSnapshotBeforeUpdate()
+
+Initialize state in 2 ways:
+First one:
+constructor(props){
+    super(props);
+    this.state = {lat: null, errorMessage: ""};
+}
+
+Second one:
+state = {lat: null, errorMessage: ""};
+
+Overriding the function when 'this' is undefined:
+constructor(){
+	this.<name of the method> = this.<name of the method>.bind(this);
+}
+
+or
+
+transform the function into an arrow function:
+onFormSubmit = (event) => {
+	event.preventDefaults();
+}
+<form onSubmit={this.onFormChange} className="ui form">
+
+or
+
+pass an arrow function directly into the event handler:
+onFormChange(e){
+        e.preventDefault();
+        console.log(this.state.term);
+    }
+<form onSubmit={(e) => this.onFormChange(e)} className="ui form">
+
+Creating a REF variable inside the constructor to deal with the document:
+this.imageRef = React.createRef();
+
+Then include that variable in the return statement in the JSX:
+<div ref={this.imageRef}><div/>
+
+
+
