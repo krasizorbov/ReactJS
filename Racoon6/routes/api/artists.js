@@ -14,10 +14,10 @@ const User = require('../../models/User');
 router.post(
     '/',
     [
-      	check('bandName', 'Band name is required!').not().isEmpty(),
-      	check('name', 'Name is required!').not().isEmpty(),
-      	check('email', 'Please include a valid email!').isEmail(),
-      	check('password', 'Please enter a password with 6 or more characters!').isLength({ min: 6 })
+      	check('bandName', 'Band name is required.').not().isEmpty(),
+      	check('name', 'Name is required.').not().isEmpty(),
+      	check('email', 'Please include a valid email.').isEmail(),
+      	check('password', 'Please enter a password with 6 or more characters.').isLength({ min: 6 })
     ],
     async (req, res) => {
       	const errors = validationResult(req);
@@ -31,7 +31,7 @@ router.post(
         	let artist = await User.findOne({ email });
 			
         	if (artist) {
-        	  return res.status(400).json({ errors: [{ msg: 'User already exists!' }] });
+        	  return res.status(400).json({ errors: [{ msg: 'User already exists.' }] });
         	}
 		
         	artist = new Artist({
