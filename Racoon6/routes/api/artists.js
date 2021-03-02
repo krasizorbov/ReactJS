@@ -46,7 +46,7 @@ router.post(
 				email,
 				password,
 				role
-			})
+			});
 		
         	const salt = await bcrypt.genSalt(config.get('saltRounds'));
 
