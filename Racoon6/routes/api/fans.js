@@ -38,19 +38,18 @@ router.post(
               password
             });
         
-            const salt = await bcrypt.genSalt(10);
+            const salt = await bcrypt.genSalt(config.get('saltRounds'));
         
             user.password = await bcrypt.hash(password, salt);
         
             await user.save();
         
-            const payload = {user: {id: user.id}};
+            const payload = {user: {id: user.id, role: "fan"}};
         
             jwt.sign(payload, config.get('jwtSecret'), { expiresIn: '5 days' }, (err, token) => {
                 if (err) throw err;
                 res.json({ token });
-                }
-            );
+            });
         } catch (err) {
             console.error(err.message);
             res.status(500).send('Server error');

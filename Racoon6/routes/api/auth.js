@@ -17,13 +17,13 @@ router.get('/', auth, async (req, res) => {
     try {
         if (req.user.role === "artist") {
             user = await Artist.findById(req.user.id).select('-password');
-        } else {
+        } else if (req.user.role === "fan") {
             user = await Fan.findById(req.user.id).select('-password');
         }
         res.json(user);
     } catch (err) {
         console.error(err.message);
-        res.status(500).send('Server Error');
+        res.status(500).send('Server Error!');
     }
 });
 
