@@ -6,16 +6,17 @@ const config = require('config');
 const { check, validationResult } = require('express-validator');
 
 const Fan = require('../../models/Fan');
+const User = require('../../models/User');
 
 // route  POST api/fans
-// des    Register a fan
+// desc   Register a fan
 // access Public
 router.post(
     '/',
     [
-      check('name', 'Name is required!').not().isEmpty(),
-      check('email', 'Please include a valid email!').isEmail(),
-      check('password', 'Please enter a password with 6 or more characters!').isLength({ min: 6 })
+      check('name', 'Name is required.').not().isEmpty(),
+      check('email', 'Please include a valid email.').isEmail(),
+      check('password', 'Please enter a password with 6 or more characters.').isLength({ min: 6 })
     ],
     async (req, res) => {
         const errors = validationResult(req);
@@ -26,25 +27,33 @@ router.post(
         const {name, email, password } = req.body;
   
         try {
-            let user = await Fan.findOne({ email });
+            const fan = await User.findOne({ email });
             
-            if (user) {
-              return res.status(400).json({ errors: [{ msg: 'User already exists!' }] });
+            if (fan) {
+              return res.status(400).json({ errors: [{ msg: 'User already exists.' }] });
             }
         
-            user = new Fan({
+            fan = new Fan({
               name,
               email,
               password
             });
-        
+            
+            const role = "fan";
+			let user = new User({
+			      email,
+			      password,
+			      role
+			});
             const salt = await bcrypt.genSalt(config.get('saltRounds'));
         
             user.password = await bcrypt.hash(password, salt);
+            fan.password = await bcrypt.hash(password, salt);
         
             await user.save();
+            await fan.save();
         
-            const payload = {user: {id: user.id, role: "fan"}};
+            const payload = {user: {id: fan.id, role: "fan"}};
         
             jwt.sign(payload, config.get('jwtSecret'), { expiresIn: '5 days' }, (err, token) => {
                 if (err) throw err;

@@ -6,9 +6,10 @@ const config = require('config');
 const { check, validationResult } = require('express-validator');
 
 const Artist = require('../../models/Artist');
+const User = require('../../models/User');
 
 // route  POST api/artists
-// des    Register an artist
+// desc   Register an artist
 // access Public
 router.post(
     '/',
@@ -27,26 +28,35 @@ router.post(
       	const {bandName, name, email, password } = req.body;
   
       	try {
-        	let user = await Artist.findOne({ email });
+        	let artist = await User.findOne({ email });
 			
-        	if (user) {
+        	if (artist) {
         	  return res.status(400).json({ errors: [{ msg: 'User already exists!' }] });
         	}
 		
-        	user = new Artist({
+        	artist = new Artist({
         	  bandName,
         	  name,
         	  email,
         	  password
         	});
+
+			const role = "artist";
+			let user = new User({
+				email,
+				password,
+				role
+			})
 		
         	const salt = await bcrypt.genSalt(config.get('saltRounds'));
-		
+
+			artist.password = await bcrypt.hash(password, salt);
         	user.password = await bcrypt.hash(password, salt);
 		
         	await user.save();
+			await artist.save();
 		
-        	const payload = {user: {id: user.id, role: "artist"}};
+        	const payload = {user: {id: artist.id, role: "artist"}};
 		
         	jwt.sign(payload, config.get('jwtSecret'), { expiresIn: '5 days' }, (err, token) => {
         	    if (err) throw err;

@@ -8,6 +8,7 @@ const { check, validationResult } = require('express-validator');
 
 const Artist = require('../../models/Artist');
 const Fan = require('../../models/Fan');
+const User = require('../../models/User');
 
 // route  GET api/auth
 // desc   Get user by token
@@ -56,8 +57,15 @@ router.post(
             if (!isMatch) {
                 return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] });
             }
-  
-            const payload = {user: {id: user.id}};
+            
+            let existingUser = null;
+            if (user.role === "artist") {
+                existingUser = await Artist.findOne({ email });
+            } else {
+                existingUser = await Fan.findOne({ email });
+            }
+            
+            const payload = {user: {id: existingUser.id, role: user.role}};
   
             jwt.sign(payload, config.get('jwtSecret'), { expiresIn: '5 days' }, (err, token) => {
                 if (err) throw err;
