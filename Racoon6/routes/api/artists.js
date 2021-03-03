@@ -31,20 +31,20 @@ router.post(
 			let artist = await Artist.findOne({ bandName });
 			
         	if (artist) {
-        	  return res.status(400).json({ errors: [{ msg: 'Band name already exists.' }] });
+        	  	return res.status(400).json({ errors: [{ msg: 'Band name already exists.' }] });
         	}
 
         	let user = await User.findOne({ name });
 			
         	if (user) {
-        	  return res.status(400).json({ errors: [{ msg: 'Username already exists.' }] });
+        	  	return res.status(400).json({ errors: [{ msg: 'Username already exists.' }] });
         	}
 
         	artist = new Artist({
-        	  bandName,
-        	  name,
-        	  email,
-        	  password
+        	  	bandName,
+        	  	name,
+        	  	email,
+        	  	password
         	});
 
 			const role = "artist";
