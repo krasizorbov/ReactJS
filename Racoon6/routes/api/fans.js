@@ -14,7 +14,7 @@ const User = require('../../models/User');
 router.post(
     '/',
     [
-      check('name', 'Name is required.').not().isEmpty(),
+      check('name', 'Username is required.').not().isEmpty(),
       check('email', 'Please include a valid email.').isEmail(),
       check('password', 'Please enter a password with 6 or more characters.').isLength({ min: 6 })
     ],
@@ -27,10 +27,10 @@ router.post(
         const {name, email, password } = req.body;
   
         try {
-            const fan = await User.findOne({ email });
+            let fan = await User.findOne({ name });
             
             if (fan) {
-              return res.status(400).json({ errors: [{ msg: 'User already exists.' }] });
+              return res.status(400).json({ errors: [{ msg: 'Username already exists.' }] });
             }
         
             fan = new Fan({
@@ -41,7 +41,7 @@ router.post(
             
             const role = "fan";
 			let user = new User({
-			      email,
+			      name,
 			      password,
 			      role
 			});

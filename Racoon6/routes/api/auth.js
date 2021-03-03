@@ -34,7 +34,7 @@ router.get('/', auth, async (req, res) => {
 router.post(
     '/',
     [
-      check('email', 'Please include a valid email').isEmail(),
+      check('name', 'Username is required').not().isEmpty(),
       check('password', 'Password is required').exists()
     ],
     async (req, res) => {
@@ -43,10 +43,10 @@ router.post(
             return res.status(400).json({ errors: errors.array() });
         }
   
-        const { email, password } = req.body;
+        const { name, password } = req.body;
   
         try {
-            let user = await User.findOne({ email });
+            let user = await User.findOne({ name });
   
             if (!user) {
                 return res.status(400).json({ errors: [{ msg: 'Invalid Credentials' }] });
@@ -60,9 +60,9 @@ router.post(
             
             let existingUser = null;
             if (user.role === "artist") {
-                existingUser = await Artist.findOne({ email });
+                existingUser = await Artist.findOne({ name });
             } else {
-                existingUser = await Fan.findOne({ email });
+                existingUser = await Fan.findOne({ name });
             }
             
             const payload = {user: {id: existingUser.id, role: user.role}};

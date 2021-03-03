@@ -15,7 +15,7 @@ router.post(
     '/',
     [
       	check('bandName', 'Band name is required.').not().isEmpty(),
-      	check('name', 'Name is required.').not().isEmpty(),
+      	check('name', 'Username is required.').not().isEmpty(),
       	check('email', 'Please include a valid email.').isEmail(),
       	check('password', 'Please enter a password with 6 or more characters.').isLength({ min: 6 })
     ],
@@ -28,12 +28,18 @@ router.post(
       	const {bandName, name, email, password } = req.body;
   
       	try {
-        	let artist = await User.findOne({ email });
+			let artist = await Artist.findOne({ bandName });
 			
         	if (artist) {
-        	  return res.status(400).json({ errors: [{ msg: 'User already exists.' }] });
+        	  return res.status(400).json({ errors: [{ msg: 'Band name already exists.' }] });
         	}
-		
+
+        	let user = await User.findOne({ name });
+			
+        	if (user) {
+        	  return res.status(400).json({ errors: [{ msg: 'Username already exists.' }] });
+        	}
+
         	artist = new Artist({
         	  bandName,
         	  name,
@@ -42,8 +48,8 @@ router.post(
         	});
 
 			const role = "artist";
-			let user = new User({
-				email,
+			user = new User({
+				name,
 				password,
 				role
 			});
