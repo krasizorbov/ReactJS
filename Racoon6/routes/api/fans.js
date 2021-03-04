@@ -33,16 +33,14 @@ router.post(
       let fan = await Fan.findOne({ email });
 
       if (fan) {
-        return res
-          .status(400)
-          .json({
-            errors: [
-              {
-                msg:
-                  'A fan with that email address already exists. Please Log in.',
-              },
-            ],
-          });
+        return res.status(400).json({
+          errors: [
+            {
+              msg:
+                'A fan with that email address already exists. Please Log in.',
+            },
+          ],
+        });
       }
 
       let user = await User.findOne({ name });
@@ -73,7 +71,7 @@ router.post(
       await user.save();
       await fan.save();
 
-      const payload = { user: { id: fan.id, role: 'fan' } };
+      const payload = { user: { id: fan.id, username: name, role: 'fan' } };
 
       jwt.sign(
         payload,
