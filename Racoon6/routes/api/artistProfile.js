@@ -12,13 +12,13 @@ const normalize = require('normalize-url');
 const Profile = require('../../models/ArtistProfile');
 const Artist = require('../../models/Artist');
 
-// route  GET api/profile/artist/me
+// route  GET api/profile/artist/
 // des    GET current artist profile
 // access Private
 router.get('/', auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({
-      user: req.user.id,
+      artist: req.user.id,
     }).populate('user', ['name']);
     if (!profile) {
       return res.status(400).json({ msg: 'There is no profile for this user' });
