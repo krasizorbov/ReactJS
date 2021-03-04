@@ -73,7 +73,7 @@ router.post(
       website:
         website && website !== ''
           ? normalize(website, { forceHttps: true })
-          : '',
+          : null,
       genreTags,
       location,
       email,
