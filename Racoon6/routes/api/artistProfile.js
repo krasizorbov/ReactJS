@@ -50,6 +50,7 @@ router.post(
       location,
       website,
       email,
+      genreTags,
       termination,
       youtube,
       facebook,
@@ -59,6 +60,13 @@ router.post(
       ...rest
     } = req.body;
 
+    // check for genre tags if any
+    if (genreTags !== undefined) {
+      Array.isArray(genreTags)
+        ? genreTags
+        : genreTags.split(',').map((tag) => ' ' + tag.trim());
+    }
+
     // build a profile
     const profileFields = {
       user: req.user.id,
@@ -66,6 +74,7 @@ router.post(
         website && website !== ''
           ? normalize(website, { forceHttps: true })
           : '',
+      genreTags,
       location,
       email,
       termination,

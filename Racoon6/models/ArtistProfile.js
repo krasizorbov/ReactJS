@@ -22,6 +22,9 @@ const ArtistProfileSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  genreTags: {
+    type: [String],
+  },
   termination: {
     type: String,
   },
