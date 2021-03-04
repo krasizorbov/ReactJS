@@ -11,6 +11,7 @@ const checkObjectId = require('../../middleware/checkObjectId');
 
 const Profile = require('../../models/ArtistProfile');
 const Artist = require('../../models/Artist');
+const User = require('../../models/User');
 
 // route  GET api/profile/artist/
 // des    GET current artist profile
@@ -128,4 +129,25 @@ router.get(
     }
   }
 );
+
+// route    DELETE api/artist
+// des      Delete profile and artist
+// access   Private
+router.delete('/', auth, async (req, res) => {
+  try {
+    // Remove user posts
+    //await Post.deleteMany({ user: req.user.id });
+    // Remove profile
+    await Profile.findOneAndRemove({ artist: req.user.id });
+    // Remove user
+    await User.findOneAndRemove({ name: req.user.username });
+    // Remove artist
+    await Artist.findOneAndRemove({ _id: req.user.id });
+
+    res.json({ msg: 'User deleted' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 module.exports = router;

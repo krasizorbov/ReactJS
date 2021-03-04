@@ -69,7 +69,9 @@ router.post(
       await user.save();
       await artist.save();
 
-      const payload = { user: { id: artist.id, role: 'artist' } };
+      const payload = {
+        user: { id: artist.id, username: name, role: 'artist' },
+      };
 
       jwt.sign(
         payload,
