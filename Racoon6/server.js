@@ -7,9 +7,9 @@ const app = express();
 connectDB();
 
 // Initialize Middleware
-app.use(express.json({extended: false}));
+app.use(express.json({ extended: false }));
 
-app.get('/', (req, res) => res.send("API Running"));
+app.get('/', (req, res) => res.send('API Running'));
 
 // Define routes
 app.use('/api/artists', require('./routes/api/artists'));
