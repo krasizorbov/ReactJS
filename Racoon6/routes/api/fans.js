@@ -27,10 +27,16 @@ router.post(
         const {name, email, password } = req.body;
   
         try {
-            let fan = await User.findOne({ name });
+            let fan = await Fan.findOne({ email });
             
             if (fan) {
-              return res.status(400).json({ errors: [{ msg: 'Username already exists.' }] });
+              return res.status(400).json({ errors: [{ msg: 'A fan with that email address already exists. Please Log in.' }] });
+            }
+
+            let user = await User.findOne({ name });
+            
+            if (user) {
+              return res.status(400).json({ errors: [{ msg: 'That username is already taken.' }] });
             }
         
             fan = new Fan({
@@ -40,7 +46,7 @@ router.post(
             });
             
             const role = "fan";
-			let user = new User({
+			user = new User({
 			      name,
 			      password,
 			      role
