@@ -16,11 +16,11 @@ router.post(
   [
     check('bandName', 'Band name is required.').not().isEmpty(),
     check('name', 'Username is required.').not().isEmpty(),
-    check('email', 'Please include a valid email.').isEmail(),
     check(
       'password',
       'Please enter a password with 6 or more characters.'
     ).isLength({ min: 6 }),
+    check('email', 'Please include a valid email.').isEmail(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
