@@ -4,20 +4,25 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
 
-const Navbar = ({ auth: { isAuthenticated }, logout }) => {
-  const authLinks = (
+const Navbar = ({ auth: { isAuthenticated, user }, logout }) => {
+  let isArtist = '';
+  if (user !== null) {
+    if (user.bandName !== undefined && isAuthenticated) {
+      isArtist = true;
+    } else {
+      isArtist = false;
+    }
+  }
+  const artistLinks = (
     <ul>
       <li>
-        <Link to='/profiles'>Developers</Link>
+        <Link to='/profiles'>Edit Profile</Link>
       </li>
       <li>
-        <Link to='/posts'>Posts</Link>
+        <Link to='/posts'>Add Album</Link>
       </li>
       <li>
-        <Link to='/dashboard'>
-          <i className='fas fa-user' />{' '}
-          <span className='hide-sm'>Dashboard</span>
-        </Link>
+        <Link to='/dashboard'>Add Track</Link>
       </li>
       <li>
         <a onClick={logout} href='#!'>
@@ -31,13 +36,27 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
   const guestLinks = (
     <ul>
       <li>
-        <Link to='/profiles'>Developers</Link>
-      </li>
-      <li>
         <Link to='/register/artist'>Register</Link>
       </li>
       <li>
         <Link to='/login'>Login</Link>
+      </li>
+    </ul>
+  );
+
+  const fanLinks = (
+    <ul>
+      <li>
+        <Link to='/profiles'>Purchases</Link>
+      </li>
+      <li>
+        <Link to='/profiles'>Edit Profile</Link>
+      </li>
+      <li>
+        <a onClick={logout} href='#!'>
+          <i className='fas fa-sign-out-alt' />{' '}
+          <span className='hide-sm'>Logout</span>
+        </a>
       </li>
     </ul>
   );
@@ -55,7 +74,13 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
           it.
         </h4>
       </div>
-      <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
+      <Fragment>
+        {isArtist === true
+          ? artistLinks
+          : isArtist === false
+          ? fanLinks
+          : guestLinks}
+      </Fragment>
     </nav>
   );
 };
