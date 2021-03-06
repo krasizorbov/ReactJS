@@ -16,7 +16,7 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout }) => {
   const artistLinks = (
     <ul>
       <li>
-        <Link to='/profiles'>Edit Profile</Link>
+        <Link to='/dashboard'>Dashboard</Link>
       </li>
       <li>
         <Link to='/posts'>Add Album</Link>
@@ -69,10 +69,7 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout }) => {
         </Link>
       </h1>
       <div>
-        <h4>
-          Discover amazing new music and directly support the artists who make
-          it.
-        </h4>
+        <h4>Discover amazing new music and support the artists who make it.</h4>
       </div>
       <Fragment>
         {isArtist === true

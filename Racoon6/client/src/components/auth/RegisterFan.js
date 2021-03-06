@@ -23,6 +23,9 @@ const RegisterFan = ({ setAlert, registerfan, isAuthenticated }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (!name && !email && !password) {
+      return;
+    }
     if (checked === false && name !== '' && email !== '' && password !== '') {
       setAlert('Please accept the terms of use', 'danger');
     } else {
@@ -134,7 +137,7 @@ const RegisterFan = ({ setAlert, registerfan, isAuthenticated }) => {
 
 RegisterFan.propTypes = {
   setAlert: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired,
+  registerfan: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
 };
 

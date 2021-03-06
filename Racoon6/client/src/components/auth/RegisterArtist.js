@@ -16,14 +16,18 @@ const RegisterArtist = ({ setAlert, registerartist, isAuthenticated }) => {
 
   const { bandName, name, email, password } = formData;
 
-  const onChange = (e) =>
+  const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const [checked, setChecked] = useState(false);
   const toggle = () => setChecked(!checked);
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (!bandName && !name && !email && !password) {
+      return;
+    }
     if (
       checked === false &&
       bandName !== '' &&
@@ -155,7 +159,7 @@ const RegisterArtist = ({ setAlert, registerartist, isAuthenticated }) => {
 
 RegisterArtist.propTypes = {
   setAlert: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired,
+  registerartist: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
 };
 
