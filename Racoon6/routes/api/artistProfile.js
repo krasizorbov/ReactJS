@@ -128,7 +128,7 @@ router.get(
   }
 );
 
-// route    DELETE api/artist
+// route    DELETE api/profile/artist
 // des      Delete profile and artist
 // access   Private
 router.delete('/', auth, async (req, res) => {

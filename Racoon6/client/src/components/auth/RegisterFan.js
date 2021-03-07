@@ -34,7 +34,7 @@ const RegisterFan = ({ setAlert, registerfan, isAuthenticated }) => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
+    return <Redirect to='/fan/dashboard' />;
   }
   return (
     <Fragment>

@@ -61,9 +61,6 @@ const ProfileForm = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    console.log(history);
-    console.log(profile);
     createProfile(formData, history, profile ? true : false);
   };
 
@@ -205,7 +202,7 @@ const ProfileForm = ({
           )}
 
           <input type='submit' className='btn btn-primary my-1' />
-          <Link className='btn btn-light my-1' to='/dashboard'>
+          <Link className='btn btn-light my-1' to='/artist/dashboard'>
             Go Back
           </Link>
         </form>
