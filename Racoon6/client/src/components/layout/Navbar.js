@@ -16,9 +16,7 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout }) => {
   const artistLinks = (
     <ul>
       <li>
-        <Link to={user ? `/${user.bandName}/dashboard` : '/dashboard'}>
-          Dashboard
-        </Link>
+        <Link to='/dashboard'>Dashboard</Link>
       </li>
       <li>
         <Link to='/posts'>Add Album</Link>
@@ -27,10 +25,9 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout }) => {
         <Link to='/dashboard'>Add Track</Link>
       </li>
       <li>
-        <a onClick={logout} href='/'>
-          <i className='fas fa-sign-out-alt' />{' '}
-          <span className='hide-sm'>Logout</span>
-        </a>
+        <Link to='/' onClick={logout}>
+          Logout
+        </Link>
       </li>
     </ul>
   );
@@ -55,10 +52,9 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout }) => {
         <Link to='/profiles'>Edit Profile</Link>
       </li>
       <li>
-        <a onClick={logout} href='/'>
-          <i className='fas fa-sign-out-alt' />{' '}
-          <span className='hide-sm'>Logout</span>
-        </a>
+        <Link to='/' onClick={logout}>
+          Logout
+        </Link>
       </li>
     </ul>
   );
@@ -67,7 +63,7 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout }) => {
     <nav className='navbar bg-dark'>
       <h1>
         <Link to='/'>
-          <i className='fas fa-code' /> Racoon6
+          <i className='fas fa-headphones' /> Racoon6
         </Link>
       </h1>
       <div>

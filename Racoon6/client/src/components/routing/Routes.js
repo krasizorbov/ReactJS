@@ -1,7 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import RegisterArtist from '../auth/RegisterArtist';
 import RegisterFan from '../auth/RegisterFan';
 import Login from '../auth/Login';
@@ -17,8 +15,7 @@ import ProfileForm from '../artist/ProfileForm';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
 
-const Routes = ({ auth: { isAuthenticated, user } }) => {
-  console.log(user);
+const Routes = () => {
   return (
     <section className='container'>
       <Alert />
@@ -26,12 +23,7 @@ const Routes = ({ auth: { isAuthenticated, user } }) => {
         <Route exact path='/register/artist' component={RegisterArtist} />
         <Route exact path='/register/fan' component={RegisterFan} />
         <Route exact path='/login' component={Login} />
-        <PrivateRoute
-          exact
-          path={user ? `/${user.bandName}/dashboard` : '/dashboard'}
-          component={Dashboard}
-        />
-
+        <PrivateRoute exact path='/dashboard' component={Dashboard} />
         <PrivateRoute exact path='/create-profile' component={ProfileForm} />
         <PrivateRoute exact path='/edit-profile' component={ProfileForm} />
         {/* <Route exact path='/profiles' component={Profiles} />
@@ -49,11 +41,4 @@ const Routes = ({ auth: { isAuthenticated, user } }) => {
   );
 };
 
-Routes.propTypes = {
-  auth: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-export default connect(mapStateToProps)(Routes);
+export default Routes;
