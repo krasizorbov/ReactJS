@@ -25,9 +25,6 @@ const ArtistProfileSchema = new mongoose.Schema({
   genreTags: {
     type: [String],
   },
-  termination: {
-    type: String,
-  },
   paypalEmail: {
     type: String,
     required: true,

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import RegisterArtist from '../auth/RegisterArtist';
 import RegisterFan from '../auth/RegisterFan';
 import Login from '../auth/Login';
@@ -15,7 +17,8 @@ import ProfileForm from '../artist/ProfileForm';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
 
-const Routes = (props) => {
+const Routes = ({ auth: { isAuthenticated, user } }) => {
+  console.log(user);
   return (
     <section className='container'>
       <Alert />
@@ -23,14 +26,19 @@ const Routes = (props) => {
         <Route exact path='/register/artist' component={RegisterArtist} />
         <Route exact path='/register/fan' component={RegisterFan} />
         <Route exact path='/login' component={Login} />
-        <PrivateRoute exact path='/dashboard' component={Dashboard} />
+        <PrivateRoute
+          exact
+          path={user ? `/${user.bandName}/dashboard` : '/dashboard'}
+          component={Dashboard}
+        />
 
         <PrivateRoute exact path='/create-profile' component={ProfileForm} />
+        <PrivateRoute exact path='/edit-profile' component={ProfileForm} />
         {/* <Route exact path='/profiles' component={Profiles} />
         
         <Route exact path='/profile/:id' component={Profile} />
         
-        <PrivateRoute exact path='/edit-profile' component={ProfileForm} />
+        
         <PrivateRoute exact path='/add-experience' component={AddExperience} />
         <PrivateRoute exact path='/add-education' component={AddEducation} />
         <PrivateRoute exact path='/posts' component={Posts} />
@@ -41,4 +49,11 @@ const Routes = (props) => {
   );
 };
 
-export default Routes;
+Routes.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+export default connect(mapStateToProps)(Routes);

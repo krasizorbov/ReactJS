@@ -52,7 +52,6 @@ router.post(
       website,
       email,
       genreTags,
-      termination,
       youtube,
       facebook,
       instagram,
@@ -78,7 +77,6 @@ router.post(
       genreTags,
       location,
       email,
-      termination,
       ...rest,
     };
 

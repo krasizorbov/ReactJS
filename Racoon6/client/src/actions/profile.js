@@ -51,7 +51,7 @@ export const createProfile = (formData, history, edit = false) => async (
   dispatch
 ) => {
   try {
-    const res = await api.post('/profile', formData);
+    const res = await api.post('/profile/artist', formData);
 
     dispatch({
       type: GET_PROFILE,

@@ -16,7 +16,9 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout }) => {
   const artistLinks = (
     <ul>
       <li>
-        <Link to='/dashboard'>Dashboard</Link>
+        <Link to={user ? `/${user.bandName}/dashboard` : '/dashboard'}>
+          Dashboard
+        </Link>
       </li>
       <li>
         <Link to='/posts'>Add Album</Link>
@@ -25,7 +27,7 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout }) => {
         <Link to='/dashboard'>Add Track</Link>
       </li>
       <li>
-        <a onClick={logout} href='#!'>
+        <a onClick={logout} href='/'>
           <i className='fas fa-sign-out-alt' />{' '}
           <span className='hide-sm'>Logout</span>
         </a>
@@ -53,7 +55,7 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout }) => {
         <Link to='/profiles'>Edit Profile</Link>
       </li>
       <li>
-        <a onClick={logout} href='#!'>
+        <a onClick={logout} href='/'>
           <i className='fas fa-sign-out-alt' />{' '}
           <span className='hide-sm'>Logout</span>
         </a>
