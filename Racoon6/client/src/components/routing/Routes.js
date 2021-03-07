@@ -4,7 +4,8 @@ import RegisterArtist from '../auth/RegisterArtist';
 import RegisterFan from '../auth/RegisterFan';
 import Login from '../auth/Login';
 import Alert from '../layout/Alert';
-import Dashboard from '../artist/Dashboard';
+import ArtistDashboard from '../artist/ArtistDashboard';
+import FanDashboard from '../fan/FanDashboard';
 // import ProfileForm from '../profile-forms/ProfileForm';
 // import AddExperience from '../profile-forms/AddExperience';
 // import AddEducation from '../profile-forms/AddEducation';
@@ -23,7 +24,13 @@ const Routes = () => {
         <Route exact path='/register/artist' component={RegisterArtist} />
         <Route exact path='/register/fan' component={RegisterFan} />
         <Route exact path='/login' component={Login} />
-        <PrivateRoute exact path='/dashboard' component={Dashboard} />
+        <PrivateRoute
+          exact
+          path='/artist/dashboard'
+          component={ArtistDashboard}
+        />
+        <PrivateRoute exact path='/fan/dashboard' component={FanDashboard} />
+
         <PrivateRoute exact path='/create-profile' component={ProfileForm} />
         <PrivateRoute exact path='/edit-profile' component={ProfileForm} />
         {/* <Route exact path='/profiles' component={Profiles} />

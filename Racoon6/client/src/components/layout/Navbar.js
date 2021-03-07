@@ -16,13 +16,7 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout }) => {
   const artistLinks = (
     <ul>
       <li>
-        <Link to='/dashboard'>Dashboard</Link>
-      </li>
-      <li>
-        <Link to='/posts'>Add Album</Link>
-      </li>
-      <li>
-        <Link to='/dashboard'>Add Track</Link>
+        <Link to='/artist/dashboard'>Dashboard</Link>
       </li>
       <li>
         <Link to='/' onClick={logout}>
@@ -46,10 +40,7 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout }) => {
   const fanLinks = (
     <ul>
       <li>
-        <Link to='/profiles'>Purchases</Link>
-      </li>
-      <li>
-        <Link to='/profiles'>Edit Profile</Link>
+        <Link to='/fan/dashboard'>Dashboard</Link>
       </li>
       <li>
         <Link to='/' onClick={logout}>
