@@ -20,11 +20,11 @@ const AddTrack = ({ addTrack, history }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onChangeImage = (e) => {
-    setFormData({ art: e.target.files[0] });
+    setFormData({ ...formData, art: e.target.files[0] });
   };
 
   const onChangeAudio = (e) => {
-    setFormData({ audio: e.target.files[0] });
+    setFormData({ ...formData, audio: e.target.files[0] });
   };
 
   const onUploadImage = () => {
