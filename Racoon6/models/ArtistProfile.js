@@ -40,6 +40,26 @@ const ArtistProfileSchema = new mongoose.Schema({
       type: String,
     },
   },
+  tracks: [
+    {
+      name: {
+        type: String,
+      },
+      price: {
+        type: Number,
+        default: 0.99,
+      },
+      about: {
+        type: String,
+      },
+      art: {
+        type: String,
+      },
+      audio: {
+        type: String,
+      },
+    },
+  ],
   date: {
     type: Date,
     default: Date.now,
