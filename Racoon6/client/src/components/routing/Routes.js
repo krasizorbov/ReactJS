@@ -6,8 +6,8 @@ import Login from '../auth/Login';
 import Alert from '../layout/Alert';
 import ArtistDashboard from '../artist/ArtistDashboard';
 import FanDashboard from '../fan/FanDashboard';
+import AddTrack from '../artist/AddTrack';
 // import ProfileForm from '../profile-forms/ProfileForm';
-// import AddExperience from '../profile-forms/AddExperience';
 // import AddEducation from '../profile-forms/AddEducation';
 // import Profiles from '../profiles/Profiles';
 import ProfileForm from '../artist/ProfileForm';
@@ -30,9 +30,9 @@ const Routes = () => {
           component={ArtistDashboard}
         />
         <PrivateRoute exact path='/fan/dashboard' component={FanDashboard} />
-
         <PrivateRoute exact path='/create-profile' component={ProfileForm} />
         <PrivateRoute exact path='/edit-profile' component={ProfileForm} />
+        <PrivateRoute exact path='/artist/add-track' component={AddTrack} />
         {/* <Route exact path='/profiles' component={Profiles} />
         
         <Route exact path='/profile/:id' component={Profile} />

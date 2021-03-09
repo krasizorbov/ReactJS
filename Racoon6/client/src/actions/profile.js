@@ -77,19 +77,19 @@ export const createProfile = (formData, history, edit = false) => async (
   }
 };
 
-// Add Experience
-export const addExperience = (formData, history) => async (dispatch) => {
+// Add Track
+export const addTrack = (formData, history) => async (dispatch) => {
   try {
-    const res = await api.put('/profile/experience', formData);
+    const res = await api.put('/profile/artist/track', formData);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert('Experience Added', 'success'));
+    dispatch(setAlert('Track Added', 'success'));
 
-    history.push('/dashboard');
+    history.push('/artist/dashboard');
   } catch (err) {
     const errors = err.response.data.errors;
 

@@ -149,10 +149,10 @@ router.delete('/', auth, async (req, res) => {
   }
 });
 
-// route    PUT api/profile/artist/tracks
-// des      Add profile tracks
+// route    PUT api/profile/artist/track
+// des      Add profile track
 // access   Private
-router.put('/artist/tracks', auth, async (req, res) => {
+router.put('/track', auth, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
