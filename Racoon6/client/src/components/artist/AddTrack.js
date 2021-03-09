@@ -40,6 +40,7 @@ const AddTrack = ({ addTrack, history }) => {
       .then((res) => res.json())
       .then((res) => {
         setFormData({
+          ...formData,
           art: res.secure_url,
         });
       })
@@ -59,6 +60,7 @@ const AddTrack = ({ addTrack, history }) => {
       .then((res) => res.json())
       .then((res) => {
         setFormData({
+          ...formData,
           audio: res.secure_url,
         });
       })
