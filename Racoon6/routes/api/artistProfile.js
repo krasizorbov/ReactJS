@@ -153,13 +153,14 @@ router.delete('/', auth, async (req, res) => {
 // des      Add profile track
 // access   Private
 router.put('/track', auth, async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //   console.log('tuk gresha');
+  //   return res.status(400).json({ errors: errors.array() });
+  // }
 
   const { name, price, about, art, audio } = req.body;
-
+  console.log(req.body);
   const track = {
     name,
     price,
@@ -181,4 +182,5 @@ router.put('/track', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
 module.exports = router;

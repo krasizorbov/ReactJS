@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -9,22 +10,61 @@ const AddTrack = ({ addTrack, history }) => {
     name: '',
     price: '',
     about: '',
+    art: null,
+    audio: null,
   });
 
-  const [art, setFileImage] = useState(null);
-  const [audio, setFileAudio] = useState(null);
-  formData['art'] = art;
-  formData['audio'] = audio;
+  const { name, price, about, art, audio } = formData;
 
-  const { name, price, about } = formData;
-  console.log(formData);
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onChangeImage = (e) => setFileImage({ art: e.target.files[0] });
+  const onChangeImage = (e) => {
+    setFormData({ art: e.target.files[0] });
+  };
 
-  const onChangeAudio = (e) => setFileAudio({ audio: e.target.files[0] });
+  const onChangeAudio = (e) => {
+    setFormData({ audio: e.target.files[0] });
+  };
 
+  const onUploadImage = () => {
+    const form = new FormData();
+    form.append('file', art);
+    form.append('upload_preset', 'racoon6_preset');
+    const options = {
+      method: 'POST',
+      body: form,
+    };
+
+    return fetch('https://api.cloudinary.com/v1_1/racoon6/raw/upload', options)
+      .then((res) => res.json())
+      .then((res) => {
+        setFormData({
+          art: res.secure_url,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const onUploadAudio = () => {
+    const form = new FormData();
+    form.append('file', audio);
+    form.append('upload_preset', 'racoon6_preset');
+    const options = {
+      method: 'POST',
+      body: form,
+    };
+
+    return fetch('https://api.cloudinary.com/v1_1/racoon6/raw/upload', options)
+      .then((res) => res.json())
+      .then((res) => {
+        setFormData({
+          audio: res.secure_url,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+  console.log(formData);
   return (
     <Fragment>
       <div className='ui center aligned three column grid'>
@@ -66,12 +106,26 @@ const AddTrack = ({ addTrack, history }) => {
             />
           </div>
           <div className='form-group'>
-            <small className='form-text'>* Upload art</small>
+            <small className='form-text'>* Art</small>
             <input type='file' name='file' onChange={onChangeImage} />
+            <button
+              type='button'
+              className='btn btn-primary my-1'
+              onClick={onUploadImage}
+            >
+              Upload Image
+            </button>
           </div>
           <div className='form-group'>
-            <small className='form-text'>* Upload audio</small>
+            <small className='form-text'>* Audio</small>
             <input type='file' name='file' onChange={onChangeAudio} />
+            <button
+              type='button'
+              className='btn btn-primary my-1'
+              onClick={onUploadAudio}
+            >
+              Upload Audio
+            </button>
           </div>
 
           <input type='submit' className='btn btn-primary my-1' />
