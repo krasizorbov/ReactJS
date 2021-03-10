@@ -66,7 +66,7 @@ const AddTrack = ({ addTrack, history }) => {
       })
       .catch((err) => console.log(err));
   };
-  console.log(formData);
+
   return (
     <Fragment>
       <div className='ui center aligned three column grid'>

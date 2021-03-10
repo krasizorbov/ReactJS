@@ -1,6 +1,8 @@
 const express = require('express');
 // const axios = require('axios');
 const config = require('config');
+const cloudinary = require('../../utils/cloudinary');
+const upload = require('../../utils/multer');
 // const request = require('request');
 const router = express.Router();
 const auth = require('../../middleware/auth');
