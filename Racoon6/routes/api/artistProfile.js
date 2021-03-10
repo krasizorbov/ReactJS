@@ -162,7 +162,6 @@ router.put('/track', auth, async (req, res) => {
   // }
 
   const { name, price, about, art, audio } = req.body;
-  console.log(req.body);
   const track = {
     name,
     price,

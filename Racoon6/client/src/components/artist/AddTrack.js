@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -13,6 +12,23 @@ const AddTrack = ({ addTrack, history }) => {
     art: null,
     audio: null,
   });
+
+  const [disableImageUploadBtn, setDisableImageBtn] = useState(false);
+  const [disableAudioUploadBtn, setDisableAudioBtn] = useState(false);
+
+  const [imageUploadCheck, setImageCkeckUploadState] = useState({
+    classImageCheckName: '',
+    imageUploaded: '',
+  });
+
+  const { classImageCheckName, imageUploaded } = imageUploadCheck;
+
+  const [audioUploadCheck, setAudioCkeckUploadState] = useState({
+    classAudioCheckName: '',
+    audioUploaded: '',
+  });
+
+  const { classAudioCheckName, audioUploaded } = audioUploadCheck;
 
   const { name, price, about, art, audio } = formData;
 
@@ -28,6 +44,7 @@ const AddTrack = ({ addTrack, history }) => {
   };
 
   const onUploadImage = () => {
+    setDisableImageBtn({ disableImageUploadBtn: true });
     const form = new FormData();
     form.append('file', art);
     form.append('upload_preset', 'racoon6_preset');
@@ -43,11 +60,17 @@ const AddTrack = ({ addTrack, history }) => {
           ...formData,
           art: res.secure_url,
         });
+        setImageCkeckUploadState({
+          ...imageUploadCheck,
+          classImageCheckName: 'fas fa-check',
+          imageUploaded: 'Done!',
+        });
       })
       .catch((err) => console.log(err));
   };
 
   const onUploadAudio = () => {
+    setDisableAudioBtn({ disableAudioUploadBtn: true });
     const form = new FormData();
     form.append('file', audio);
     form.append('upload_preset', 'racoon6_preset');
@@ -62,6 +85,11 @@ const AddTrack = ({ addTrack, history }) => {
         setFormData({
           ...formData,
           audio: res.secure_url,
+        });
+        setAudioCkeckUploadState({
+          ...audioUploadCheck,
+          classAudioCheckName: 'fas fa-check',
+          audioUploaded: 'Done!',
         });
       })
       .catch((err) => console.log(err));
@@ -113,10 +141,12 @@ const AddTrack = ({ addTrack, history }) => {
             <button
               type='button'
               className='btn btn-primary my-1'
+              disabled={disableImageUploadBtn}
               onClick={onUploadImage}
             >
               Upload Image
             </button>
+            <i className={classImageCheckName}> {imageUploaded}</i>
           </div>
           <div className='form-group'>
             <small className='form-text'>* Audio</small>
@@ -124,10 +154,12 @@ const AddTrack = ({ addTrack, history }) => {
             <button
               type='button'
               className='btn btn-primary my-1'
+              disabled={disableAudioUploadBtn}
               onClick={onUploadAudio}
             >
               Upload Audio
             </button>
+            <i className={classAudioCheckName}> {audioUploaded}</i>
           </div>
 
           <input type='submit' className='btn btn-primary my-1' />
