@@ -44,10 +44,11 @@ const ArtistProfileSchema = new mongoose.Schema({
     {
       name: {
         type: String,
+        required: true,
       },
       price: {
         type: Number,
-        default: 0.99,
+        required: true,
       },
       about: {
         type: String,
@@ -55,7 +56,13 @@ const ArtistProfileSchema = new mongoose.Schema({
       art: {
         type: String,
       },
+      artPublicId: {
+        type: String,
+      },
       audio: {
+        type: String,
+      },
+      audioPublicId: {
         type: String,
       },
     },

@@ -1,8 +1,5 @@
 const express = require('express');
 // const axios = require('axios');
-const config = require('config');
-const cloudinary = require('../../utils/cloudinary');
-const upload = require('../../utils/multer');
 // const request = require('request');
 const router = express.Router();
 const auth = require('../../middleware/auth');
@@ -154,34 +151,54 @@ router.delete('/', auth, async (req, res) => {
 // route    PUT api/profile/artist/track
 // des      Add profile track
 // access   Private
-router.put('/track', auth, async (req, res) => {
-  // const errors = validationResult(req);
-  // if (!errors.isEmpty()) {
-  //   console.log('tuk gresha');
-  //   return res.status(400).json({ errors: errors.array() });
-  // }
+router.put(
+  '/track',
+  auth,
+  check('name', 'Track name is required').not().isEmpty(),
+  check('price', 'Price is required')
+    .not()
+    .isEmpty()
+    .isFloat()
+    .withMessage('Number is required'),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
 
-  const { name, price, about, art, audio } = req.body;
-  const track = {
-    name,
-    price,
-    about,
-    art,
-    audio,
-  };
+    const {
+      name,
+      price,
+      about,
+      art,
+      artPublicId,
+      audio,
+      audioPublicId,
+    } = req.body;
 
-  try {
-    const profile = await Profile.findOne({ artist: req.user.id });
+    const track = {
+      name,
+      price,
+      about,
+      art,
+      artPublicId,
+      audio,
+      audioPublicId,
+    };
 
-    profile.tracks.unshift(track);
+    try {
+      const profile = await Profile.findOne({ artist: req.user.id });
 
-    await profile.save();
+      profile.tracks.unshift(track);
 
-    res.json(profile);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
+      await profile.save();
+
+      res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
   }
-});
+);
 
 module.exports = router;
