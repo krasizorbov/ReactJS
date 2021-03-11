@@ -7,9 +7,6 @@ import Alert from '../layout/Alert';
 import ArtistDashboard from '../artist/ArtistDashboard';
 import FanDashboard from '../fan/FanDashboard';
 import AddTrack from '../artist/AddTrack';
-// import ProfileForm from '../profile-forms/ProfileForm';
-// import AddEducation from '../profile-forms/AddEducation';
-// import Profiles from '../profiles/Profiles';
 import ProfileForm from '../artist/ProfileForm';
 // import Posts from '../posts/Posts';
 // import Post from '../post/Post';
@@ -36,9 +33,6 @@ const Routes = () => {
         {/* <Route exact path='/profiles' component={Profiles} />
         
         <Route exact path='/profile/:id' component={Profile} />
-        
-        
-        <PrivateRoute exact path='/add-experience' component={AddExperience} />
         <PrivateRoute exact path='/add-education' component={AddEducation} />
         <PrivateRoute exact path='/posts' component={Posts} />
         <PrivateRoute exact path='/posts/:id' component={Post} /> */}

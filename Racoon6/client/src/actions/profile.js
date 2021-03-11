@@ -1,4 +1,5 @@
 import api from '../utils/api';
+import axios from 'axios';
 import { setAlert } from './alert';
 
 import {
@@ -135,12 +136,10 @@ export const addEducation = (formData, history) => async (dispatch) => {
 export const deleteTrack = (id) => async (dispatch) => {
   try {
     const res = await api.delete(`profile/artist/track/${id}`);
-
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
-
     dispatch(setAlert('Track Removed', 'success'));
   } catch (err) {
     dispatch({
@@ -150,12 +149,15 @@ export const deleteTrack = (id) => async (dispatch) => {
   }
 };
 
-// Delete cloudinary
+// Delete Cloudinary Data
 export const deleteCloudinary = async (artPublicId, audioPublicId) => {
   try {
-    const resArt = await api.post(`cloudinary/${artPublicId}`);
-    const resAudio = await api.post(`cloudinary/${audioPublicId}`);
-    console.log(resArt, resAudio);
+    const data = [{ public_id: artPublicId }, { public_id: audioPublicId }];
+
+    await api
+      .post('/cloudinary', data)
+      .then((res) => console.log('Data send'))
+      .catch((err) => console.log(err.data));
   } catch (err) {
     console.log(err);
   }
