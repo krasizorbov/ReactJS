@@ -150,22 +150,14 @@ export const deleteTrack = (id) => async (dispatch) => {
   }
 };
 
-// Delete education
-export const deleteEducation = (id) => async (dispatch) => {
+// Delete cloudinary
+export const deleteCloudinary = async (artPublicId, audioPublicId) => {
   try {
-    const res = await api.delete(`/profile/education/${id}`);
-
-    dispatch({
-      type: UPDATE_PROFILE,
-      payload: res.data,
-    });
-
-    dispatch(setAlert('Education Removed', 'success'));
+    const resArt = await api.post(`cloudinary/${artPublicId}`);
+    const resAudio = await api.post(`cloudinary/${audioPublicId}`);
+    console.log(resArt, resAudio);
   } catch (err) {
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
+    console.log(err);
   }
 };
 

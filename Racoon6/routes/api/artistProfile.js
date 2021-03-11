@@ -158,7 +158,7 @@ router.put(
   check('price', 'Price is required')
     .not()
     .isEmpty()
-    .isFloat()
+    .isNumeric()
     .withMessage('Number is required'),
   async (req, res) => {
     const errors = validationResult(req);

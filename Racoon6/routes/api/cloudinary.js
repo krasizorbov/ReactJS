@@ -7,7 +7,7 @@ router.post('/', auth, async (req, res) => {
   // deleting data
   try {
     await cloudinary.uploader.destroy(
-      'Krasi_hwtcg8.jpg',
+      req.body.public_id,
       { type: 'upload', resource_type: 'raw' },
       (error, result) => {
         if (error) {
