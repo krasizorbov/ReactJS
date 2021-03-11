@@ -1,5 +1,4 @@
 import api from '../utils/api';
-import axios from 'axios';
 import { setAlert } from './alert';
 
 import {
@@ -153,7 +152,6 @@ export const deleteTrack = (id) => async (dispatch) => {
 export const deleteCloudinary = async (artPublicId, audioPublicId) => {
   try {
     const data = [{ public_id: artPublicId }, { public_id: audioPublicId }];
-
     await api
       .post('/cloudinary', data)
       .then((res) => console.log('Data send'))
