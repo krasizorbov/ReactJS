@@ -1,15 +1,16 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import ReactAudioPlayer from 'react-audio-player';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-//import { deleteExperience } from '../../actions/profile';
+import { deleteTrack } from '../../actions/profile';
 
-const Track = ({ track }) => {
+const Track = ({ track, deleteTrack }) => {
   const tracks = track.map((t) => (
     <ul>
       <li className='reframe' key={t._id}>
         <div>{t.name}</div>
-        <div className='crop'>
+        <div className='crop' style={{ marginTop: '15px' }}>
           <img src={t.art} alt='Not Found' />
         </div>
       </li>
@@ -18,13 +19,19 @@ const Track = ({ track }) => {
           <ReactAudioPlayer src={t.audio} autoPlay={false} controls />
         </div>
       </li>
-      <div style={{ marginTop: '15px', marginBottom: '20px' }}>
+      <div
+        className='dash-buttons'
+        style={{ marginTop: '15px', marginBottom: '20px' }}
+      >
         <button
-          //onClick={() => deleteExperience(t._id)}
+          onClick={() => deleteTrack(t._id, t.artPublicId, t.audioPublicId)}
           className='btn btn-danger'
         >
           Delete
         </button>
+        <Link to='/edit-track' className='btn btn-light'>
+          <i className='fas fa-file-audio text-primary' /> Edit Track
+        </Link>
       </div>
     </ul>
   ));
@@ -39,7 +46,7 @@ const Track = ({ track }) => {
 
 Track.propTypes = {
   track: PropTypes.array.isRequired,
-  //deleteExperience: PropTypes.func.isRequired,
+  deleteTrack: PropTypes.func.isRequired,
 };
 
-export default connect(null)(Track);
+export default connect(null, { deleteTrack })(Track);

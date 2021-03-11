@@ -131,17 +131,17 @@ export const addEducation = (formData, history) => async (dispatch) => {
   }
 };
 
-// Delete experience
-export const deleteExperience = (id) => async (dispatch) => {
+// Delete Track
+export const deleteTrack = (id) => async (dispatch) => {
   try {
-    const res = await api.delete(`/profile/experience/${id}`);
+    const res = await api.delete(`profile/artist/track/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert('Experience Removed', 'success'));
+    dispatch(setAlert('Track Removed', 'success'));
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,

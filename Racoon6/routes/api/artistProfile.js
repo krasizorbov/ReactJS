@@ -201,4 +201,23 @@ router.put(
   }
 );
 
+// route    DELETE api/profile/track/:track_id
+// des      Delete track from profile
+// access   Private
+
+router.delete('/track/:track_id', auth, async (req, res) => {
+  try {
+    const foundProfile = await Profile.findOne({ artist: req.user.id });
+
+    foundProfile.tracks = foundProfile.tracks.filter(
+      (t) => t._id.toString() !== req.params.track_id
+    );
+
+    await foundProfile.save();
+    return res.status(200).json(foundProfile);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ msg: 'Server error' });
+  }
+});
 module.exports = router;
