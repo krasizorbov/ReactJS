@@ -10,7 +10,9 @@ const AddTrack = ({ addTrack, history }) => {
     price: '',
     about: '',
     art: null,
+    artPublicId: null,
     audio: null,
+    audioPublicId: null,
   });
 
   const [disableImageUploadBtn, setDisableImageBtn] = useState(false);
@@ -59,6 +61,7 @@ const AddTrack = ({ addTrack, history }) => {
         setFormData({
           ...formData,
           art: res.secure_url,
+          artPublicId: res.public_id,
         });
         setImageCkeckUploadState({
           ...imageUploadCheck,
@@ -85,6 +88,7 @@ const AddTrack = ({ addTrack, history }) => {
         setFormData({
           ...formData,
           audio: res.secure_url,
+          audioPublicId: res.public_id,
         });
         setAudioCkeckUploadState({
           ...audioUploadCheck,
