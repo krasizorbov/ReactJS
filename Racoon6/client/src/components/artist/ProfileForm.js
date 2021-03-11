@@ -81,7 +81,7 @@ const ProfileForm = ({
             <input
               type='text'
               name='bandName'
-              value={bandName}
+              value={bandName || ''}
               onChange={onChange}
             />
           </div>
@@ -91,7 +91,7 @@ const ProfileForm = ({
             <input
               type='text'
               name='location'
-              value={location}
+              value={location || ''}
               onChange={onChange}
             />
 
@@ -100,7 +100,7 @@ const ProfileForm = ({
               <input
                 type='text'
                 name='website'
-                value={website}
+                value={website || ''}
                 onChange={onChange}
               />
             </div>
@@ -111,14 +111,14 @@ const ProfileForm = ({
             <input
               type='email'
               name='email'
-              value={email}
+              value={email || ''}
               onChange={onChange}
             />
           </div>
 
           <div className='form-group'>
             <small className='form-text'>* Genre</small>
-            <select name='genre' value={genre} onChange={onChange}>
+            <select name='genre' value={genre || ''} onChange={onChange}>
               <option>Select Genre</option>
               <option value='Country'>Country</option>
               <option value='Electronic'>Electronic</option>
@@ -135,7 +135,7 @@ const ProfileForm = ({
               type='text'
               placeholder='Dance, Rock, Pop'
               name='genreTags'
-              value={genreTags}
+              value={genreTags || ''}
               onChange={onChange}
             />
             <small className='form-text'>
@@ -148,7 +148,7 @@ const ProfileForm = ({
             <input
               type='email'
               name='paypalEmail'
-              value={paypalEmail}
+              value={paypalEmail || ''}
               onChange={onChange}
             />
           </div>
@@ -172,7 +172,7 @@ const ProfileForm = ({
                   type='text'
                   placeholder='YouTube URL'
                   name='youtube'
-                  value={youtube}
+                  value={youtube || ''}
                   onChange={onChange}
                 />
               </div>
@@ -183,7 +183,7 @@ const ProfileForm = ({
                   type='text'
                   placeholder='Facebook URL'
                   name='facebook'
-                  value={facebook}
+                  value={facebook || ''}
                   onChange={onChange}
                 />
               </div>
@@ -194,7 +194,7 @@ const ProfileForm = ({
                   type='text'
                   placeholder='Instagram URL'
                   name='instagram'
-                  value={instagram}
+                  value={instagram || ''}
                   onChange={onChange}
                 />
               </div>

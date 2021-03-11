@@ -489,6 +489,37 @@ button {
   margin-bottom: 0.5rem;
 }
 
+/* .crop {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+}
+
+.crop img {
+  width: 400px;
+  height: 300px;
+  margin: -75px 0 0 -100px;
+} */
+.crop {
+  position: relative;
+  width: 300px;
+  height: 250px;
+  overflow: hidden;
+}
+img {
+  position: relative;
+  max-width: 250px;
+  width: 250px;
+  height: 250px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+img.landscape {
+  height: 250px;
+  width: 25px;
+}
+
 /* Mobile Styles */
 @media (max-width: 700px) {
   .container {
