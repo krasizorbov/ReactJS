@@ -77,7 +77,7 @@ const ProfileForm = ({
       <div className='ui center aligned three column grid'>
         <form className='form' onSubmit={onSubmit}>
           <div className='form-group'>
-            <small className='form-text'>* Artist/Band name</small>
+            <label>* Artist/Band name</label>
             <input
               type='text'
               name='bandName'
@@ -87,7 +87,7 @@ const ProfileForm = ({
           </div>
 
           <div className='form-group'>
-            <small className='form-text'>Location</small>
+            <label>Location</label>
             <input
               type='text'
               name='location'
@@ -96,7 +96,7 @@ const ProfileForm = ({
             />
 
             <div className='form-group'>
-              <small className='form-text'>Website</small>
+              <label>Website</label>
               <input
                 type='text'
                 name='website'
@@ -107,7 +107,7 @@ const ProfileForm = ({
           </div>
 
           <div className='form-group'>
-            <small className='form-text'>* Email</small>
+            <label>* Email</label>
             <input
               type='email'
               name='email'
@@ -117,7 +117,7 @@ const ProfileForm = ({
           </div>
 
           <div className='form-group'>
-            <small className='form-text'>* Genre</small>
+            <label>* Genre</label>
             <select name='genre' value={genre || ''} onChange={onChange}>
               <option>Select Genre</option>
               <option value='Country'>Country</option>
@@ -130,7 +130,7 @@ const ProfileForm = ({
           </div>
 
           <div className='form-group'>
-            <small className='form-text'>Genre Tag(s)</small>
+            <label>Genre Tag(s)</label>
             <input
               type='text'
               placeholder='Dance, Rock, Pop'
@@ -144,7 +144,7 @@ const ProfileForm = ({
           </div>
 
           <div className='form-group'>
-            <small className='form-text'>* PayPal Email</small>
+            <label>* PayPal Email</label>
             <input
               type='email'
               name='paypalEmail'

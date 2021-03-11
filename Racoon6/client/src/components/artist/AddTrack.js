@@ -118,18 +118,15 @@ const AddTrack = ({ addTrack, history }) => {
           }}
         >
           <div className='form-group'>
-            <small className='form-text'>* Track name</small>
+            <label>* Track name</label>
             <input type='text' name='name' value={name} onChange={onChange} />
           </div>
           <div className='form-group'>
-            <small className='form-text'>Price</small>
+            <label>* Price</label>
             <input type='text' name='price' value={price} onChange={onChange} />
-            <small className='form-text'>
-              Optional, default value is $0.99
-            </small>
           </div>
           <div className='form-group'>
-            <small className='form-text'>About this track</small>
+            <label>About this track</label>
             <textarea
               type='text'
               rows='4'
@@ -140,30 +137,40 @@ const AddTrack = ({ addTrack, history }) => {
             />
           </div>
           <div className='form-group'>
-            <small className='form-text'>* Art</small>
-            <input type='file' name='file' onChange={onChangeImage} />
-            <button
-              type='button'
-              className='btn btn-primary my-1'
-              disabled={disableImageUploadBtn}
-              onClick={onUploadImage}
-            >
-              Upload Image
-            </button>
-            <i className={classImageCheckName}> {imageUploaded}</i>
+            <label>* Art - 1400 x 1400 pixels minimum</label>
+            <div>
+              <input type='file' name='file' onChange={onChangeImage} />
+              <button
+                type='button'
+                className='btn btn-primary my-1'
+                disabled={disableImageUploadBtn}
+                onClick={onUploadImage}
+              >
+                Upload Image
+              </button>
+              <i className={classImageCheckName}> {imageUploaded}</i>
+            </div>
           </div>
+
           <div className='form-group'>
-            <small className='form-text'>* Audio</small>
-            <input type='file' name='file' onChange={onChangeAudio} />
-            <button
-              type='button'
-              className='btn btn-primary my-1'
-              disabled={disableAudioUploadBtn}
-              onClick={onUploadAudio}
-            >
-              Upload Audio
-            </button>
-            <i className={classAudioCheckName}> {audioUploaded}</i>
+            <label>* Audio - MP3 files only</label>
+            <div>
+              <input
+                type='file'
+                name='file'
+                accept='.mp3'
+                onChange={onChangeAudio}
+              />
+              <button
+                type='button'
+                className='btn btn-primary my-1'
+                disabled={disableAudioUploadBtn}
+                onClick={onUploadAudio}
+              >
+                Upload Audio
+              </button>
+              <i className={classAudioCheckName}> {audioUploaded}</i>
+            </div>
           </div>
 
           <input type='submit' className='btn btn-primary my-1' />

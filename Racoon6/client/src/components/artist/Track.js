@@ -21,7 +21,7 @@ const Track = ({ track, deleteTrack }) => {
       </li>
       <div
         className='dash-buttons'
-        style={{ marginTop: '15px', marginBottom: '20px' }}
+        style={{ marginLeft: '50px', marginTop: '15px', marginBottom: '20px' }}
       >
         <button
           onClick={() => {
