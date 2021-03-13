@@ -149,11 +149,21 @@ const AddAlbum = ({ addAlbum, history }) => {
         >
           <div className='form-group'>
             <label>* Album name</label>
-            <input type='text' name='name' value={name} onChange={onChange} />
+            <input
+              type='text'
+              name='name'
+              value={name || ''}
+              onChange={onChange}
+            />
           </div>
           <div className='form-group'>
             <label>* Price</label>
-            <input type='text' name='price' value={price} onChange={onChange} />
+            <input
+              type='text'
+              name='price'
+              value={price || ''}
+              onChange={onChange}
+            />
           </div>
           <div className='form-group'>
             <label>About this album</label>
@@ -162,7 +172,7 @@ const AddAlbum = ({ addAlbum, history }) => {
               rows='4'
               cols='50'
               name='about'
-              value={about}
+              value={about || ''}
               onChange={onChange}
             />
           </div>
@@ -191,7 +201,7 @@ const AddAlbum = ({ addAlbum, history }) => {
                   <input
                     type='text'
                     name='name'
-                    value={x.name}
+                    value={x.name || ''}
                     placeholder='track name'
                     onChange={(e) => onChangeTrackName(e, i)}
                   />
