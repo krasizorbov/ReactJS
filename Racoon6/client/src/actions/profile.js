@@ -104,19 +104,19 @@ export const addTrack = (formData, history) => async (dispatch) => {
   }
 };
 
-// Add Education
-export const addEducation = (formData, history) => async (dispatch) => {
+// Add Album
+export const addAlbum = (formData, history) => async (dispatch) => {
   try {
-    const res = await api.put('/profile/education', formData);
+    const res = await api.put('/profile/artist/album', formData);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert('Education Added', 'success'));
+    dispatch(setAlert('Album Added', 'success'));
 
-    history.push('/dashboard');
+    history.push('/artist/dashboard');
   } catch (err) {
     const errors = err.response.data.errors;
 

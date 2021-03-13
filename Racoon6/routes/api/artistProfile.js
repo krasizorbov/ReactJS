@@ -230,7 +230,6 @@ router.put(
       ...tracks,
     };
 
-    console.log(album);
     try {
       const profile = await Profile.findOne({ artist: req.user.id });
 

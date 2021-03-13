@@ -10,7 +10,7 @@ const DashboardActions = () => {
       <Link to='/artist/add-track' className='btn btn-light'>
         <i className='fas fa-file-audio text-primary' /> Add Track
       </Link>
-      <Link to='/add-album' className='btn btn-light'>
+      <Link to='/artist/add-album' className='btn btn-light'>
         <i className='fas fa-compact-disc text-primary' /> Add Album
       </Link>
     </div>

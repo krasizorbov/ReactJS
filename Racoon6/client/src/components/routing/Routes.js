@@ -7,6 +7,7 @@ import Alert from '../layout/Alert';
 import ArtistDashboard from '../artist/ArtistDashboard';
 import FanDashboard from '../fan/FanDashboard';
 import AddTrack from '../artist/AddTrack';
+import AddAlbum from '../artist/AddAlbum';
 import ProfileForm from '../artist/ProfileForm';
 // import Posts from '../posts/Posts';
 // import Post from '../post/Post';
@@ -30,6 +31,7 @@ const Routes = () => {
         <PrivateRoute exact path='/create-profile' component={ProfileForm} />
         <PrivateRoute exact path='/edit-profile' component={ProfileForm} />
         <PrivateRoute exact path='/artist/add-track' component={AddTrack} />
+        <PrivateRoute exact path='/artist/add-album' component={AddAlbum} />
         {/* <Route exact path='/profiles' component={Profiles} />
         
         <Route exact path='/profile/:id' component={Profile} />
