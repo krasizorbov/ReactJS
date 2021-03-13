@@ -5,9 +5,11 @@ import { connect } from 'react-redux';
 import { addAlbum } from '../../actions/profile';
 
 const AddAlbum = ({ addAlbum, history }) => {
-  const [inputAudioList, setInputAudioList] = useState([
+  const [inputList, setInputList] = useState([
     { name: '', audio: null, audioPublicId: null },
   ]);
+
+  //const { audio, audioPublicId } = inputList;
   const [formData, setFormData] = useState({
     name: '',
     price: '',
@@ -34,7 +36,7 @@ const AddAlbum = ({ addAlbum, history }) => {
 
   const { classAudioCheckName, audioUploaded } = audioUploadCheck;
 
-  const { name, price, about, art, audio } = formData;
+  const { name, price, about, art, tracks } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -43,8 +45,25 @@ const AddAlbum = ({ addAlbum, history }) => {
     setFormData({ ...formData, art: e.target.files[0] });
   };
 
-  const onChangeAudio = (e) => {
-    setFormData({ ...formData, audio: e.target.files[0] });
+  const onChangeAudio = (e, index) => {
+    const list = [...inputList];
+    list[index]['name'] = e.target.value;
+    list[index]['audio'] = e.target.files[0];
+    list[index]['audioPublicId'] = null;
+    setInputList(list);
+    //setFormData({ ...formData, tracks: inputList });
+  };
+
+  // handle click event of the Remove button
+  const handleRemoveClick = (index) => {
+    const list = [...inputList];
+    list.splice(index, 1);
+    setInputList(list);
+  };
+
+  // handle click event of the Add button
+  const handleAddClick = () => {
+    setInputList([...inputList, { audio: null, audioPublicId: null }]);
   };
 
   const onUploadImage = () => {
@@ -74,10 +93,10 @@ const AddAlbum = ({ addAlbum, history }) => {
       .catch((err) => console.log(err));
   };
 
-  const onUploadAudio = () => {
-    setDisableAudioBtn({ disableAudioUploadBtn: true });
+  const onUploadAudio = (e, index) => {
     const form = new FormData();
-    form.append('file', audio);
+    const list = [...inputList];
+    form.append('file', list[index]['audio']);
     form.append('upload_preset', 'racoon6_preset');
     const options = {
       method: 'POST',
@@ -87,10 +106,12 @@ const AddAlbum = ({ addAlbum, history }) => {
     return fetch('https://api.cloudinary.com/v1_1/racoon6/raw/upload', options)
       .then((res) => res.json())
       .then((res) => {
+        list[index]['audio'] = res.secure_url;
+        list[index]['audioPublicId'] = res.public_id;
+        setInputList(list);
         setFormData({
           ...formData,
-          audio: res.secure_url,
-          audioPublicId: res.public_id,
+          tracks: inputList,
         });
         setAudioCkeckUploadState({
           ...audioUploadCheck,
@@ -100,7 +121,7 @@ const AddAlbum = ({ addAlbum, history }) => {
       })
       .catch((err) => console.log(err));
   };
-
+  console.log(formData);
   return (
     <Fragment>
       <div className='ui center aligned three column grid'>
@@ -139,41 +160,76 @@ const AddAlbum = ({ addAlbum, history }) => {
             />
           </div>
           <div className='form-group'>
-            <label>* Art - 1400 x 1400 pixels minimum</label>
-            <div>
-              <input type='file' name='file' onChange={onChangeImage} />
-              <button
-                type='button'
-                className='btn btn-primary my-1'
-                disabled={disableImageUploadBtn}
-                onClick={onUploadImage}
-              >
-                Upload Image
-              </button>
-              <i className={classImageCheckName}> {imageUploaded}</i>
+            <div className='ui segment'>
+              <label>* Art - 1400 x 1400 pixels minimum</label>
+              <div>
+                <input type='file' name='file' onChange={onChangeImage} />
+                <button
+                  type='button'
+                  className='btn btn-primary my-1'
+                  disabled={disableImageUploadBtn}
+                  onClick={onUploadImage}
+                >
+                  Upload Image
+                </button>
+                <i className={classImageCheckName}> {imageUploaded}</i>
+              </div>
             </div>
           </div>
-
-          <div className='form-group'>
-            <label>* Audio - MP3 files only</label>
-            <div>
-              <input
-                type='file'
-                name='file'
-                accept='.mp3'
-                onChange={onChangeAudio}
-              />
-              <button
-                type='button'
-                className='btn btn-primary my-1'
-                disabled={disableAudioUploadBtn}
-                onClick={onUploadAudio}
-              >
-                Upload Audio
-              </button>
-              <i className={classAudioCheckName}> {audioUploaded}</i>
-            </div>
-          </div>
+          {inputList.map((x, i) => {
+            return (
+              <div key={i} className='form-group'>
+                <div className='ui segment'>
+                  <label>* Track name</label>
+                  <input
+                    type='text'
+                    name='name'
+                    value={name}
+                    placeholder='track name'
+                    onChange={onChange}
+                  />
+                  <small className='form-text'>Audio - mp3 only</small>
+                  <div>
+                    <input
+                      type='file'
+                      name='file'
+                      accept='.mp3'
+                      onChange={(e) => onChangeAudio(e, i)}
+                    />
+                    <button
+                      type='button'
+                      className='btn btn-primary my-1'
+                      disabled={disableAudioUploadBtn}
+                      onClick={(e) => onUploadAudio(e, i)}
+                    >
+                      Upload Audio
+                    </button>
+                    <i className={classAudioCheckName}> {audioUploaded}</i>
+                    <div>
+                      {inputList.length !== 1 && (
+                        <button
+                          type='button'
+                          className='ui button'
+                          onClick={() => handleRemoveClick(i)}
+                        >
+                          Remove
+                        </button>
+                      )}
+                      {inputList.length - 1 === i && (
+                        <button
+                          type='button'
+                          className='ui button'
+                          onClick={handleAddClick}
+                        >
+                          Add track
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
 
           <input type='submit' className='btn btn-primary my-1' />
           <Link className='btn btn-light my-1' to='/artist/dashboard'>
