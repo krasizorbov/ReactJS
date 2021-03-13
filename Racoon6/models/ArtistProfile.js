@@ -67,6 +67,45 @@ const ArtistProfileSchema = new mongoose.Schema({
       },
     },
   ],
+  albums: [
+    {
+      album: [
+        {
+          name: {
+            type: String,
+            required: true,
+          },
+          price: {
+            type: Number,
+            required: true,
+          },
+          about: {
+            type: String,
+          },
+          art: {
+            type: String,
+          },
+          artPublicId: {
+            type: String,
+          },
+          tracks: [
+            {
+              name: {
+                type: String,
+                required: true,
+              },
+              audio: {
+                type: String,
+              },
+              audioPublicId: {
+                type: String,
+              },
+            },
+          ],
+        },
+      ],
+    },
+  ],
   date: {
     type: Date,
     default: Date.now,
