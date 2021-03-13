@@ -9,7 +9,7 @@ const AddAlbum = ({ addAlbum, history }) => {
     { name: '', audio: null, audioPublicId: null },
   ]);
 
-  //const { audio, audioPublicId } = inputList;
+  const { trackname, audio, audioPublicId } = inputList;
   const [formData, setFormData] = useState({
     name: '',
     price: '',
@@ -45,9 +45,16 @@ const AddAlbum = ({ addAlbum, history }) => {
     setFormData({ ...formData, art: e.target.files[0] });
   };
 
-  const onChangeAudio = (e, index) => {
+  const onChangeTrackName = (e, index) => {
+    console.log(index);
     const list = [...inputList];
     list[index]['name'] = e.target.value;
+    setInputList(list);
+  };
+
+  const onChangeAudio = (e, index) => {
+    const list = [...inputList];
+    //list[index]['name'] = e.target.value;
     list[index]['audio'] = e.target.files[0];
     list[index]['audioPublicId'] = null;
     setInputList(list);
@@ -184,9 +191,9 @@ const AddAlbum = ({ addAlbum, history }) => {
                   <input
                     type='text'
                     name='name'
-                    value={name}
+                    value={x.name}
                     placeholder='track name'
-                    onChange={onChange}
+                    onChange={(e) => onChangeTrackName(e, i)}
                   />
                   <small className='form-text'>Audio - mp3 only</small>
                   <div>
