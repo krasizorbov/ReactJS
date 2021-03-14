@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import config from '../../../config';
 import { addTrack } from '../../actions/profile';
 
 const AddTrack = ({ addTrack, history }) => {
@@ -49,13 +50,13 @@ const AddTrack = ({ addTrack, history }) => {
     setDisableImageBtn({ disableImageUploadBtn: true });
     const form = new FormData();
     form.append('file', art);
-    form.append('upload_preset', 'racoon6_preset');
+    form.append('upload_preset', config.get('upload_preset'));
     const options = {
       method: 'POST',
       body: form,
     };
 
-    return fetch('https://api.cloudinary.com/v1_1/racoon6/raw/upload', options)
+    return fetch(config.get('cloudinaryURL'), options)
       .then((res) => res.json())
       .then((res) => {
         setFormData({
@@ -76,13 +77,13 @@ const AddTrack = ({ addTrack, history }) => {
     setDisableAudioBtn({ disableAudioUploadBtn: true });
     const form = new FormData();
     form.append('file', audio);
-    form.append('upload_preset', 'racoon6_preset');
+    form.append('upload_preset', config.get('upload_preset'));
     const options = {
       method: 'POST',
       body: form,
     };
 
-    return fetch('https://api.cloudinary.com/v1_1/racoon6/raw/upload', options)
+    return fetch(config.get('cloudinaryURL'), options)
       .then((res) => res.json())
       .then((res) => {
         setFormData({

@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import config from '../../../config';
 import { addAlbum } from '../../actions/profile';
 
 const AddAlbum = ({ addAlbum, history }) => {
@@ -54,11 +55,9 @@ const AddAlbum = ({ addAlbum, history }) => {
 
   const onChangeAudio = (e, index) => {
     const list = [...inputList];
-    //list[index]['name'] = e.target.value;
     list[index]['audio'] = e.target.files[0];
     list[index]['audioPublicId'] = null;
     setInputList(list);
-    //setFormData({ ...formData, tracks: inputList });
   };
 
   // handle click event of the Remove button
@@ -77,13 +76,13 @@ const AddAlbum = ({ addAlbum, history }) => {
     setDisableImageBtn({ disableImageUploadBtn: true });
     const form = new FormData();
     form.append('file', art);
-    form.append('upload_preset', 'racoon6_preset');
+    form.append('upload_preset', config.get('upload_preset'));
     const options = {
       method: 'POST',
       body: form,
     };
 
-    return fetch('https://api.cloudinary.com/v1_1/racoon6/raw/upload', options)
+    return fetch(config.get('cloudinaryURL'), options)
       .then((res) => res.json())
       .then((res) => {
         setFormData({
@@ -104,13 +103,13 @@ const AddAlbum = ({ addAlbum, history }) => {
     const form = new FormData();
     const list = [...inputList];
     form.append('file', list[index]['audio']);
-    form.append('upload_preset', 'racoon6_preset');
+    form.append('upload_preset', config.get('upload_preset'));
     const options = {
       method: 'POST',
       body: form,
     };
 
-    return fetch('https://api.cloudinary.com/v1_1/racoon6/raw/upload', options)
+    return fetch(config.get('cloudinaryURL'), options)
       .then((res) => res.json())
       .then((res) => {
         list[index]['audio'] = res.secure_url;
