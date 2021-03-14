@@ -13,6 +13,8 @@ const AddAlbum = ({ addAlbum, history }) => {
       audioPublicId: null,
       disableAudioFileBtn: false,
       disableAudioUploadBtn: true,
+      checkMark: '',
+      done: '',
     },
   ]);
 
@@ -27,8 +29,6 @@ const AddAlbum = ({ addAlbum, history }) => {
 
   const [disableImageUploadBtn, setDisableImageUploadBtn] = useState(true);
   const [disableImageFileBtn, setDisableImageFileBtn] = useState(false);
-  const [disableAudioUploadBtn, setDisableAudioBtn] = useState(false);
-  //const [disableAudioFileBtn, setDisableAudioFileBtn] = useState(false);
 
   const [imageUploadCheck, setImageCkeckUploadState] = useState({
     classImageCheckName: '',
@@ -37,14 +37,7 @@ const AddAlbum = ({ addAlbum, history }) => {
 
   const { classImageCheckName, imageUploaded } = imageUploadCheck;
 
-  const [audioUploadCheck, setAudioCkeckUploadState] = useState({
-    classAudioCheckName: '',
-    audioUploaded: '',
-  });
-
-  const { classAudioCheckName, audioUploaded } = audioUploadCheck;
-
-  const { name, price, about, art, tracks } = formData;
+  const { name, price, about, art } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -127,15 +120,12 @@ const AddAlbum = ({ addAlbum, history }) => {
       .then((res) => {
         list[index]['audio'] = res.secure_url;
         list[index]['audioPublicId'] = res.public_id;
+        list[index]['checkMark'] = 'fas fa-check';
+        list[index]['done'] = 'Done!';
         setInputList(list);
         setFormData({
           ...formData,
           tracks: inputList,
-        });
-        setAudioCkeckUploadState({
-          ...audioUploadCheck,
-          classAudioCheckName: 'fas fa-check',
-          audioUploaded: 'Done!',
         });
       })
       .catch((err) => console.log(err));
@@ -234,7 +224,6 @@ const AddAlbum = ({ addAlbum, history }) => {
                     name='name'
                     value={x.name || ''}
                     placeholder='track name'
-                    disabled={x.disableAudioFileBtn}
                     onChange={(e) => onChangeTrackName(e, i)}
                   />
                   <small className='form-text'>Audio - mp3 only</small>
@@ -243,6 +232,7 @@ const AddAlbum = ({ addAlbum, history }) => {
                       type='file'
                       name='file'
                       accept='.mp3'
+                      disabled={x.disableAudioFileBtn}
                       onChange={(e) => onChangeAudio(e, i)}
                     />
                     <button
@@ -253,7 +243,7 @@ const AddAlbum = ({ addAlbum, history }) => {
                     >
                       Upload Audio
                     </button>
-                    <i className={classAudioCheckName}> {audioUploaded}</i>
+                    <i className={x.checkMark}> {x.done}</i>
                     <div>
                       {inputList.length !== 1 && (
                         <button
@@ -279,7 +269,6 @@ const AddAlbum = ({ addAlbum, history }) => {
               </div>
             );
           })}
-
           <input type='submit' className='btn btn-primary my-1' />
           <Link className='btn btn-light my-1' to='/artist/dashboard'>
             Go Back
