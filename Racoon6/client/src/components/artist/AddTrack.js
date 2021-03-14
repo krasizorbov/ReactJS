@@ -16,9 +16,9 @@ const AddTrack = ({ addTrack, history }) => {
     audioPublicId: null,
   });
 
-  const [disableImageUploadBtn, setDisableImageBtn] = useState(true);
+  const [disableImageUploadBtn, setDisableImageUploadBtn] = useState(true);
   const [disableImageFileBtn, setDisableImageFileBtn] = useState(false);
-  const [disableAudioUploadBtn, setDisableAudioBtn] = useState(true);
+  const [disableAudioUploadBtn, setDisableAudioUploadBtn] = useState(true);
   const [disableAudioFileBtn, setDisableAudioFileBtn] = useState(false);
 
   const [imageUploadCheck, setImageCkeckUploadState] = useState({
@@ -26,12 +26,12 @@ const AddTrack = ({ addTrack, history }) => {
     imageUploaded: '',
   });
 
-  const { classImageCheckName, imageUploaded } = imageUploadCheck;
-
   const [audioUploadCheck, setAudioCkeckUploadState] = useState({
     classAudioCheckName: '',
     audioUploaded: '',
   });
+
+  const { classImageCheckName, imageUploaded } = imageUploadCheck;
 
   const { classAudioCheckName, audioUploaded } = audioUploadCheck;
 
@@ -42,16 +42,16 @@ const AddTrack = ({ addTrack, history }) => {
 
   const onChangeImage = (e) => {
     setFormData({ ...formData, art: e.target.files[0] });
-    setDisableImageBtn((prevState) => !prevState);
+    setDisableImageUploadBtn((prevState) => !prevState);
   };
 
   const onChangeAudio = (e) => {
     setFormData({ ...formData, audio: e.target.files[0] });
-    setDisableAudioBtn((prevState) => !prevState);
+    setDisableAudioUploadBtn((prevState) => !prevState);
   };
 
   const onUploadImage = () => {
-    setDisableImageBtn({ disableImageUploadBtn: true });
+    setDisableImageUploadBtn({ disableImageUploadBtn: true });
     setDisableImageFileBtn({ disableImageFileBtn: true });
     const form = new FormData();
     form.append('file', art);
@@ -80,7 +80,7 @@ const AddTrack = ({ addTrack, history }) => {
 
   const onUploadAudio = () => {
     setDisableAudioFileBtn({ disableAudioFileBtn: true });
-    setDisableAudioBtn({ disableAudioUploadBtn: true });
+    setDisableAudioUploadBtn({ disableAudioUploadBtn: true });
     const form = new FormData();
     form.append('file', audio);
     form.append('upload_preset', config.upload_preset);
