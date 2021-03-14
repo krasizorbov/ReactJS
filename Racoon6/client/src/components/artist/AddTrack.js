@@ -17,7 +17,9 @@ const AddTrack = ({ addTrack, history }) => {
   });
 
   const [disableImageUploadBtn, setDisableImageBtn] = useState(true);
+  const [disableImageFileBtn, setDisableImageFileBtn] = useState(false);
   const [disableAudioUploadBtn, setDisableAudioBtn] = useState(true);
+  const [disableAudioFileBtn, setDisableAudioFileBtn] = useState(false);
 
   const [imageUploadCheck, setImageCkeckUploadState] = useState({
     classImageCheckName: '',
@@ -50,6 +52,7 @@ const AddTrack = ({ addTrack, history }) => {
 
   const onUploadImage = () => {
     setDisableImageBtn({ disableImageUploadBtn: true });
+    setDisableImageFileBtn({ disableImageFileBtn: true });
     const form = new FormData();
     form.append('file', art);
     form.append('upload_preset', config.upload_preset);
@@ -76,6 +79,7 @@ const AddTrack = ({ addTrack, history }) => {
   };
 
   const onUploadAudio = () => {
+    setDisableAudioFileBtn({ disableAudioFileBtn: true });
     setDisableAudioBtn({ disableAudioUploadBtn: true });
     const form = new FormData();
     form.append('file', audio);
@@ -143,7 +147,13 @@ const AddTrack = ({ addTrack, history }) => {
             <div className='ui segment'>
               <label>* Art - 1400 x 1400 pixels minimum</label>
               <div>
-                <input type='file' name='file' onChange={onChangeImage} />
+                <input
+                  type='file'
+                  name='file'
+                  disabled={disableImageFileBtn}
+                  onChange={onChangeImage}
+                />
+
                 <button
                   type='button'
                   className='btn btn-primary my-1'
@@ -153,6 +163,20 @@ const AddTrack = ({ addTrack, history }) => {
                   Upload Image
                 </button>
                 <i className={classImageCheckName}> {imageUploaded}</i>
+              </div>
+              <div>
+                {imageUploaded && (
+                  <img
+                    src={art}
+                    style={{
+                      marginLeft: '-175px',
+                      marginTop: '50px',
+                      width: '100px',
+                      height: '100px',
+                    }}
+                    alt='art'
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -165,6 +189,7 @@ const AddTrack = ({ addTrack, history }) => {
                   type='file'
                   name='file'
                   accept='.mp3'
+                  disabled={disableAudioFileBtn}
                   onChange={onChangeAudio}
                 />
                 <button
@@ -179,7 +204,6 @@ const AddTrack = ({ addTrack, history }) => {
               </div>
             </div>
           </div>
-
           <input type='submit' className='btn btn-primary my-1' />
           <Link className='btn btn-light my-1' to='/artist/dashboard'>
             Go Back

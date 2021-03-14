@@ -12,7 +12,7 @@ router.post('/', auth, async (req, res) => {
         { type: 'upload', resource_type: 'raw' },
         (error, result) => {
           if (error) {
-            console.log(error);
+            return res.status(400).json({ msg: 'File was not found' });
           } else {
             console.log(result);
           }
