@@ -7,8 +7,8 @@ import { deleteCloudinary, deleteTrack } from '../../actions/profile';
 
 const Track = ({ track, deleteTrack }) => {
   const tracks = track.map((t) => (
-    <ul>
-      <li className='reframe' key={t._id}>
+    <ul key={t._id}>
+      <li className='reframe'>
         <div>{t.name}</div>
         <div className='crop' style={{ marginTop: '15px' }}>
           <img src={t.art} alt='Not Found' />
@@ -21,7 +21,7 @@ const Track = ({ track, deleteTrack }) => {
       </li>
       <div
         className='dash-buttons'
-        style={{ marginLeft: '50px', marginTop: '15px', marginBottom: '20px' }}
+        style={{ marginTop: '15px', marginBottom: '20px' }}
       >
         <button
           onClick={() => {
@@ -34,6 +34,9 @@ const Track = ({ track, deleteTrack }) => {
         </button>
         <Link to='/edit-track' className='btn btn-light'>
           <i className='fas fa-file-audio text-primary' /> Edit Track
+        </Link>
+        <Link to='/buy-track' className='btn btn-light'>
+          <i className='fas fa-file-audio text-primary' /> Buy
         </Link>
       </div>
     </ul>

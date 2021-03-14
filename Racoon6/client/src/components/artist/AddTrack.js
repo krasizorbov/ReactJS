@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import config from '../../../config';
+import config from '../../config/default.json';
 import { addTrack } from '../../actions/profile';
 
 const AddTrack = ({ addTrack, history }) => {
@@ -16,8 +16,8 @@ const AddTrack = ({ addTrack, history }) => {
     audioPublicId: null,
   });
 
-  const [disableImageUploadBtn, setDisableImageBtn] = useState(false);
-  const [disableAudioUploadBtn, setDisableAudioBtn] = useState(false);
+  const [disableImageUploadBtn, setDisableImageBtn] = useState(true);
+  const [disableAudioUploadBtn, setDisableAudioBtn] = useState(true);
 
   const [imageUploadCheck, setImageCkeckUploadState] = useState({
     classImageCheckName: '',
@@ -40,23 +40,25 @@ const AddTrack = ({ addTrack, history }) => {
 
   const onChangeImage = (e) => {
     setFormData({ ...formData, art: e.target.files[0] });
+    setDisableImageBtn((prevState) => !prevState);
   };
 
   const onChangeAudio = (e) => {
     setFormData({ ...formData, audio: e.target.files[0] });
+    setDisableAudioBtn((prevState) => !prevState);
   };
 
   const onUploadImage = () => {
     setDisableImageBtn({ disableImageUploadBtn: true });
     const form = new FormData();
     form.append('file', art);
-    form.append('upload_preset', config.get('upload_preset'));
+    form.append('upload_preset', config.upload_preset);
     const options = {
       method: 'POST',
       body: form,
     };
 
-    return fetch(config.get('cloudinaryURL'), options)
+    return fetch(config.cloudinaryURL, options)
       .then((res) => res.json())
       .then((res) => {
         setFormData({
@@ -77,13 +79,13 @@ const AddTrack = ({ addTrack, history }) => {
     setDisableAudioBtn({ disableAudioUploadBtn: true });
     const form = new FormData();
     form.append('file', audio);
-    form.append('upload_preset', config.get('upload_preset'));
+    form.append('upload_preset', config.upload_preset);
     const options = {
       method: 'POST',
       body: form,
     };
 
-    return fetch(config.get('cloudinaryURL'), options)
+    return fetch(config.cloudinaryURL, options)
       .then((res) => res.json())
       .then((res) => {
         setFormData({
@@ -138,39 +140,43 @@ const AddTrack = ({ addTrack, history }) => {
             />
           </div>
           <div className='form-group'>
-            <label>* Art - 1400 x 1400 pixels minimum</label>
-            <div>
-              <input type='file' name='file' onChange={onChangeImage} />
-              <button
-                type='button'
-                className='btn btn-primary my-1'
-                disabled={disableImageUploadBtn}
-                onClick={onUploadImage}
-              >
-                Upload Image
-              </button>
-              <i className={classImageCheckName}> {imageUploaded}</i>
+            <div className='ui segment'>
+              <label>* Art - 1400 x 1400 pixels minimum</label>
+              <div>
+                <input type='file' name='file' onChange={onChangeImage} />
+                <button
+                  type='button'
+                  className='btn btn-primary my-1'
+                  disabled={disableImageUploadBtn}
+                  onClick={onUploadImage}
+                >
+                  Upload Image
+                </button>
+                <i className={classImageCheckName}> {imageUploaded}</i>
+              </div>
             </div>
           </div>
 
           <div className='form-group'>
-            <label>* Audio - MP3 files only</label>
-            <div>
-              <input
-                type='file'
-                name='file'
-                accept='.mp3'
-                onChange={onChangeAudio}
-              />
-              <button
-                type='button'
-                className='btn btn-primary my-1'
-                disabled={disableAudioUploadBtn}
-                onClick={onUploadAudio}
-              >
-                Upload Audio
-              </button>
-              <i className={classAudioCheckName}> {audioUploaded}</i>
+            <div className='ui segment'>
+              <label>* Audio - MP3 files only</label>
+              <div>
+                <input
+                  type='file'
+                  name='file'
+                  accept='.mp3'
+                  onChange={onChangeAudio}
+                />
+                <button
+                  type='button'
+                  className='btn btn-primary my-1'
+                  disabled={disableAudioUploadBtn}
+                  onClick={onUploadAudio}
+                >
+                  Upload Audio
+                </button>
+                <i className={classAudioCheckName}> {audioUploaded}</i>
+              </div>
             </div>
           </div>
 
