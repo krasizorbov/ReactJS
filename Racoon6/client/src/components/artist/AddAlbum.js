@@ -7,10 +7,15 @@ import { addAlbum } from '../../actions/profile';
 
 const AddAlbum = ({ addAlbum, history }) => {
   const [inputList, setInputList] = useState([
-    { name: '', audio: null, audioPublicId: null },
+    {
+      name: '',
+      audio: null,
+      audioPublicId: null,
+      disableAudioFileBtn: false,
+      disableAudioUploadBtn: true,
+    },
   ]);
 
-  const { trackname, audio, audioPublicId } = inputList;
   const [formData, setFormData] = useState({
     name: '',
     price: '',
@@ -20,8 +25,10 @@ const AddAlbum = ({ addAlbum, history }) => {
     tracks: [],
   });
 
-  const [disableImageUploadBtn, setDisableImageBtn] = useState(false);
+  const [disableImageUploadBtn, setDisableImageUploadBtn] = useState(true);
+  const [disableImageFileBtn, setDisableImageFileBtn] = useState(false);
   const [disableAudioUploadBtn, setDisableAudioBtn] = useState(false);
+  //const [disableAudioFileBtn, setDisableAudioFileBtn] = useState(false);
 
   const [imageUploadCheck, setImageCkeckUploadState] = useState({
     classImageCheckName: '',
@@ -44,6 +51,7 @@ const AddAlbum = ({ addAlbum, history }) => {
 
   const onChangeImage = (e) => {
     setFormData({ ...formData, art: e.target.files[0] });
+    setDisableImageUploadBtn((prevState) => !prevState);
   };
 
   const onChangeTrackName = (e, index) => {
@@ -57,6 +65,7 @@ const AddAlbum = ({ addAlbum, history }) => {
     const list = [...inputList];
     list[index]['audio'] = e.target.files[0];
     list[index]['audioPublicId'] = null;
+    list[index]['disableAudioUploadBtn'] = false;
     setInputList(list);
   };
 
@@ -67,22 +76,23 @@ const AddAlbum = ({ addAlbum, history }) => {
     setInputList(list);
   };
 
-  // handle click event of the Add button
+  // handle click event of the Add track button
   const handleAddClick = () => {
     setInputList([...inputList, { audio: null, audioPublicId: null }]);
   };
 
   const onUploadImage = () => {
-    setDisableImageBtn({ disableImageUploadBtn: true });
+    setDisableImageUploadBtn({ disableImageUploadBtn: true });
+    setDisableImageFileBtn({ disableImageFileBtn: true });
     const form = new FormData();
     form.append('file', art);
-    form.append('upload_preset', config.get('upload_preset'));
+    form.append('upload_preset', config.upload_preset);
     const options = {
       method: 'POST',
       body: form,
     };
 
-    return fetch(config.get('cloudinaryURL'), options)
+    return fetch(config.cloudinaryURL, options)
       .then((res) => res.json())
       .then((res) => {
         setFormData({
@@ -102,14 +112,17 @@ const AddAlbum = ({ addAlbum, history }) => {
   const onUploadAudio = (e, index) => {
     const form = new FormData();
     const list = [...inputList];
+    list[index]['disableAudioUploadBtn'] = true;
+    list[index]['disableAudioFileBtn'] = true;
     form.append('file', list[index]['audio']);
-    form.append('upload_preset', config.get('upload_preset'));
+    form.append('upload_preset', config.upload_preset);
+    setInputList(list);
     const options = {
       method: 'POST',
       body: form,
     };
 
-    return fetch(config.get('cloudinaryURL'), options)
+    return fetch(config.cloudinaryURL, options)
       .then((res) => res.json())
       .then((res) => {
         list[index]['audio'] = res.secure_url;
@@ -179,7 +192,12 @@ const AddAlbum = ({ addAlbum, history }) => {
             <div className='ui segment'>
               <label>* Art - 1400 x 1400 pixels minimum</label>
               <div>
-                <input type='file' name='file' onChange={onChangeImage} />
+                <input
+                  type='file'
+                  name='file'
+                  disabled={disableImageFileBtn}
+                  onChange={onChangeImage}
+                />
                 <button
                   type='button'
                   className='btn btn-primary my-1'
@@ -189,6 +207,20 @@ const AddAlbum = ({ addAlbum, history }) => {
                   Upload Image
                 </button>
                 <i className={classImageCheckName}> {imageUploaded}</i>
+              </div>
+              <div>
+                {imageUploaded && (
+                  <img
+                    src={art}
+                    style={{
+                      marginLeft: '-175px',
+                      marginTop: '50px',
+                      width: '100px',
+                      height: '100px',
+                    }}
+                    alt='art'
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -202,6 +234,7 @@ const AddAlbum = ({ addAlbum, history }) => {
                     name='name'
                     value={x.name || ''}
                     placeholder='track name'
+                    disabled={x.disableAudioFileBtn}
                     onChange={(e) => onChangeTrackName(e, i)}
                   />
                   <small className='form-text'>Audio - mp3 only</small>
@@ -215,7 +248,7 @@ const AddAlbum = ({ addAlbum, history }) => {
                     <button
                       type='button'
                       className='btn btn-primary my-1'
-                      disabled={disableAudioUploadBtn}
+                      disabled={x.disableAudioUploadBtn}
                       onClick={(e) => onUploadAudio(e, i)}
                     >
                       Upload Audio
