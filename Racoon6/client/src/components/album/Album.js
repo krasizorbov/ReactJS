@@ -12,20 +12,36 @@ const Album = ({ album, deleteAlbum }) => {
 
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [nextSongIndex, setNextSongIndex] = useState(0);
-  console.log(album);
+
+  useEffect(() => {
+    setNextSongIndex(() => {
+      if (currentSongIndex + 1 > songs.length - 1) {
+        return 0;
+      } else {
+        return currentSongIndex + 1;
+      }
+    });
+  }, [currentSongIndex, songs.length]);
+
   const albums = album.map((a) => (
     <ul key={a._id}>
       <div className='Album'>
-        <Player
-          currentSongIndex={currentSongIndex}
-          setCurrentSongIndex={setCurrentSongIndex}
-          nextSongIndex={nextSongIndex}
-          songs={a.tracks.map((t) => ({
-            img_src: a.art,
-            name: t.name,
-            src: t.audio,
-          }))}
-        />
+        <div className='ui segment'>
+          <Player
+            currentSongIndex={currentSongIndex}
+            setCurrentSongIndex={setCurrentSongIndex}
+            nextSongIndex={nextSongIndex}
+            songs={a.tracks.map((t) => ({
+              img_src: a.art,
+              songName: t.name,
+              audio: t.audio,
+              albumName: a.name,
+            }))}
+          />
+        </div>
+        <div className='details-img'>
+          <img src={a.art} alt='' />
+        </div>
       </div>
       <div
         className='dash-buttons'
@@ -49,16 +65,6 @@ const Album = ({ album, deleteAlbum }) => {
       </div>
     </ul>
   ));
-
-  useEffect(() => {
-    setNextSongIndex(() => {
-      if (currentSongIndex + 1 > songs.length - 1) {
-        return 0;
-      } else {
-        return currentSongIndex + 1;
-      }
-    });
-  }, [currentSongIndex, songs.length]);
 
   return (
     <Fragment>

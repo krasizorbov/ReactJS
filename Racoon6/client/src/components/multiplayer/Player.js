@@ -44,10 +44,10 @@ function Player(props) {
   return (
     <div className='c-player'>
       <audio
-        src={props.songs[props.currentSongIndex].src}
+        src={props.songs[props.currentSongIndex].audio}
         ref={audioEl}
       ></audio>
-      <h4>Playing now</h4>
+      {/* <h4>Playing now</h4> */}
       <Details song={props.songs[props.currentSongIndex]} />
       <Controls
         isPlaying={isPlaying}
@@ -55,11 +55,7 @@ function Player(props) {
         SkipSong={SkipSong}
       />
       <p>
-        Next up:{' '}
-        <span>
-          {props.songs[props.nextSongIndex].name}
-          {props.songs[props.nextSongIndex].artist}
-        </span>
+        Next up: <span>{props.songs[props.nextSongIndex].songName}</span>
       </p>
     </div>
   );
