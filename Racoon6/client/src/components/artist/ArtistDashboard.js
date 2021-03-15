@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import DashboardActions from './DashboardActions';
 import Track from './Track';
-//import Education from './Education';
+import Album from '../album/Album';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 
 const Dashboard = ({
@@ -27,7 +27,7 @@ const Dashboard = ({
         <Fragment>
           <DashboardActions />
           <Track track={profile.tracks} />
-          {/* <Education education={profile.education} /> */}
+          <Album album={profile.albums} />
 
           <div className='my-2'>
             <button className='btn btn-danger' onClick={() => deleteAccount()}>

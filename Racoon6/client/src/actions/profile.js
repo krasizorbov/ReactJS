@@ -22,6 +22,7 @@ export const getCurrentProfile = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
+    console.log(err);
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
@@ -149,7 +150,7 @@ export const deleteTrack = (id) => async (dispatch) => {
 };
 
 // Delete Album
-export const deleteAlbun = (id) => async (dispatch) => {
+export const deleteAlbum = (id) => async (dispatch) => {
   try {
     const res = await api.delete(`profile/artist/album/${id}`);
     dispatch({
