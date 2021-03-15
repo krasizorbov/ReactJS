@@ -264,4 +264,24 @@ router.delete('/track/:track_id', auth, async (req, res) => {
     return res.status(500).json({ msg: 'Server error' });
   }
 });
+
+// route    DELETE api/profile/album/:album_id
+// des      Delete album from profile
+// access   Private
+
+router.delete('/album/:album_id', auth, async (req, res) => {
+  try {
+    const foundProfile = await Profile.findOne({ artist: req.user.id });
+
+    foundProfile.albums = foundProfile.albums.filter(
+      (t) => a._id.toString() !== req.params.album_id
+    );
+
+    await foundProfile.save();
+    return res.status(200).json(foundProfile);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ msg: 'Server error' });
+  }
+});
 module.exports = router;

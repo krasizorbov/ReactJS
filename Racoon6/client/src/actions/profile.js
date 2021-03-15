@@ -148,6 +148,23 @@ export const deleteTrack = (id) => async (dispatch) => {
   }
 };
 
+// Delete Album
+export const deleteAlbun = (id) => async (dispatch) => {
+  try {
+    const res = await api.delete(`profile/artist/album/${id}`);
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+    dispatch(setAlert('Album Removed', 'success'));
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
 // Delete Cloudinary Data
 export const deleteCloudinary = async (artPublicId, audioPublicId) => {
   try {
