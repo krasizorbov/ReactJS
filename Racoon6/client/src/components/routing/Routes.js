@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 import RegisterArtist from '../auth/RegisterArtist';
 import RegisterFan from '../auth/RegisterFan';
@@ -14,7 +16,15 @@ import ProfileForm from '../artist/ProfileForm';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
 
-const Routes = () => {
+const Routes = ({ auth: { isAuthenticated, user } }) => {
+  let isArtist = '';
+  if (user !== null) {
+    if (user.bandName !== undefined && isAuthenticated) {
+      isArtist = true;
+    } else {
+      isArtist = false;
+    }
+  }
   return (
     <section className='container'>
       <Alert />
@@ -22,16 +32,36 @@ const Routes = () => {
         <Route exact path='/register/artist' component={RegisterArtist} />
         <Route exact path='/register/fan' component={RegisterFan} />
         <Route exact path='/login' component={Login} />
-        <PrivateRoute
-          exact
-          path='/artist/dashboard'
-          component={ArtistDashboard}
-        />
+        {isArtist === true ? (
+          <PrivateRoute
+            exact
+            path={`/${user.bandName}/dashboard`}
+            component={ArtistDashboard}
+          />
+        ) : null}
         <PrivateRoute exact path='/fan/dashboard' component={FanDashboard} />
         <PrivateRoute exact path='/create-profile' component={ProfileForm} />
-        <PrivateRoute exact path='/edit-profile' component={ProfileForm} />
-        <PrivateRoute exact path='/artist/add-track' component={AddTrack} />
-        <PrivateRoute exact path='/artist/add-album' component={AddAlbum} />
+        {isArtist === true ? (
+          <PrivateRoute
+            exact
+            path={`/${user.bandName}/edit-profile`}
+            component={ProfileForm}
+          />
+        ) : null}
+        {isArtist === true ? (
+          <PrivateRoute
+            exact
+            path={`/${user.bandName}/add-track`}
+            component={AddTrack}
+          />
+        ) : null}
+        {isArtist === true ? (
+          <PrivateRoute
+            exact
+            path={`/${user.bandName}/add-album`}
+            component={AddAlbum}
+          />
+        ) : null}
         {/* <Route exact path='/profiles' component={Profiles} />
         
         <Route exact path='/profile/:id' component={Profile} />
@@ -44,4 +74,11 @@ const Routes = () => {
   );
 };
 
-export default Routes;
+Routes.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+export default connect(mapStateToProps)(Routes);

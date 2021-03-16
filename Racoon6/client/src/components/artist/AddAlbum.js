@@ -1,11 +1,16 @@
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import config from '../../config/default.json';
 import { addAlbum } from '../../actions/profile';
 
 const AddAlbum = ({ addAlbum, history }) => {
+  let dashboardHistory = useHistory();
+  const goToPreviousPath = () => {
+    dashboardHistory.goBack();
+  };
+
   const [inputList, setInputList] = useState([
     {
       name: '',
@@ -270,7 +275,7 @@ const AddAlbum = ({ addAlbum, history }) => {
             );
           })}
           <input type='submit' className='btn btn-primary my-1' />
-          <Link className='btn btn-light my-1' to='/artist/dashboard'>
+          <Link className='btn btn-light my-1' onClick={goToPreviousPath}>
             Go Back
           </Link>
         </form>

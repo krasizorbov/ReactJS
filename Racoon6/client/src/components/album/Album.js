@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { deleteCloudinary, deleteAlbum } from '../../actions/profile';
 
 const Album = ({ album, deleteAlbum }) => {
-  const songs = [];
+  const songs = []; //To Do useState()
 
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [nextSongIndex, setNextSongIndex] = useState(0);
@@ -59,7 +59,7 @@ const Album = ({ album, deleteAlbum }) => {
         <Link to='/edit-track' className='btn btn-light'>
           <i className='fas fa-file-audio text-primary' /> Edit Album
         </Link>
-        <Link to='/buy-track' className='btn btn-light'>
+        <Link to='/buy-track' className='btn btn-light btn-sm'>
           <i className='fas fa-file-audio text-primary' /> Buy
         </Link>
       </div>
