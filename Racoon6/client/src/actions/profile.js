@@ -16,7 +16,6 @@ import {
 export const getCurrentProfile = () => async (dispatch) => {
   try {
     const res = await api.get('/profile/artist');
-
     dispatch({
       type: GET_PROFILE,
       payload: res.data,
@@ -90,7 +89,7 @@ export const addTrack = (formData, history) => async (dispatch) => {
 
     dispatch(setAlert('Track Added', 'success'));
 
-    //history.push('/artist/dashboard');
+    history.push('/artist/dashboard');
   } catch (err) {
     const errors = err.response.data.errors;
 
@@ -117,7 +116,7 @@ export const addAlbum = (formData, history) => async (dispatch) => {
 
     dispatch(setAlert('Album Added', 'success'));
 
-    //history.push('/artist/dashboard');
+    history.push('/artist/dashboard');
   } catch (err) {
     const errors = err.response.data.errors;
 

@@ -1,16 +1,11 @@
 import React, { Fragment, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import config from '../../config/default.json';
 import { addAlbum } from '../../actions/profile';
 
 const AddAlbum = ({ addAlbum, history }) => {
-  let dashboardHistory = useHistory();
-  const goToPreviousPath = () => {
-    dashboardHistory.goBack();
-  };
-
   const [inputList, setInputList] = useState([
     {
       name: '',
@@ -135,7 +130,7 @@ const AddAlbum = ({ addAlbum, history }) => {
       })
       .catch((err) => console.log(err));
   };
-  console.log(formData);
+
   return (
     <Fragment>
       <div className='ui center aligned three column grid'>
@@ -152,7 +147,6 @@ const AddAlbum = ({ addAlbum, history }) => {
           onSubmit={(e) => {
             e.preventDefault();
             addAlbum(formData, history);
-            dashboardHistory.goBack();
           }}
         >
           <div className='form-group'>
@@ -276,7 +270,7 @@ const AddAlbum = ({ addAlbum, history }) => {
             );
           })}
           <input type='submit' className='btn btn-primary my-1' />
-          <Link className='btn btn-light my-1' onClick={goToPreviousPath}>
+          <Link to='/artist/dashboard' className='btn btn-light my-1'>
             Go Back
           </Link>
         </form>

@@ -1,16 +1,11 @@
 import React, { Fragment, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import config from '../../config/default.json';
 import { addTrack } from '../../actions/profile';
 
 const AddTrack = ({ addTrack, history }) => {
-  let dashboardHistory = useHistory();
-  const goToPreviousPath = () => {
-    dashboardHistory.goBack();
-  };
-
   const [formData, setFormData] = useState({
     name: '',
     price: '',
@@ -127,7 +122,6 @@ const AddTrack = ({ addTrack, history }) => {
           onSubmit={(e) => {
             e.preventDefault();
             addTrack(formData, history);
-            dashboardHistory.goBack();
           }}
         >
           <div className='form-group'>
@@ -211,11 +205,7 @@ const AddTrack = ({ addTrack, history }) => {
             </div>
           </div>
           <input type='submit' className='btn btn-primary my-1' />
-          <Link
-            to='#'
-            className='btn btn-light my-1'
-            onClick={goToPreviousPath}
-          >
+          <Link to='/artist/dashboard' className='btn btn-light my-1'>
             Go Back
           </Link>
         </form>

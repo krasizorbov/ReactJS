@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile } from '../../actions/profile';
@@ -23,11 +23,6 @@ const ProfileForm = ({
   getCurrentProfile,
   history,
 }) => {
-  let dashboardHistory = useHistory();
-  const goToPreviousPath = () => {
-    dashboardHistory.goBack();
-  };
-
   const [formData, setFormData] = useState(initialState);
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
@@ -207,7 +202,7 @@ const ProfileForm = ({
           )}
 
           <input type='submit' className='btn btn-primary my-1' />
-          <Link className='btn btn-light my-1' onClick={goToPreviousPath}>
+          <Link to='/artist/dashboard' className='btn btn-light my-1'>
             Go Back
           </Link>
         </form>
