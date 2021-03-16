@@ -152,6 +152,7 @@ const AddAlbum = ({ addAlbum, history }) => {
           onSubmit={(e) => {
             e.preventDefault();
             addAlbum(formData, history);
+            dashboardHistory.goBack();
           }}
         >
           <div className='form-group'>

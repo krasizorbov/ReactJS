@@ -127,6 +127,7 @@ const AddTrack = ({ addTrack, history }) => {
           onSubmit={(e) => {
             e.preventDefault();
             addTrack(formData, history);
+            dashboardHistory.goBack();
           }}
         >
           <div className='form-group'>
@@ -210,7 +211,11 @@ const AddTrack = ({ addTrack, history }) => {
             </div>
           </div>
           <input type='submit' className='btn btn-primary my-1' />
-          <Link className='btn btn-light my-1' onClick={goToPreviousPath}>
+          <Link
+            to='#'
+            className='btn btn-light my-1'
+            onClick={goToPreviousPath}
+          >
             Go Back
           </Link>
         </form>

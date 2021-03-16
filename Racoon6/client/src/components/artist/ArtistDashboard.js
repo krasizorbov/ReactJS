@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import DashboardActions from './DashboardActions';
-import Track from './Track';
+import Track from '../track/Track';
 import Album from '../album/Album';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 

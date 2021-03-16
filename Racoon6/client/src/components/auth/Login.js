@@ -32,7 +32,7 @@ const Login = ({ auth: { isAuthenticated, user }, login }) => {
   };
 
   if (isAuthenticated && isArtist === true) {
-    return <Redirect to='/artist/dashboard' />;
+    return <Redirect to={`/${user.bandName}/dashboard`} />;
   } else if (isAuthenticated && isArtist === false) {
     return <Redirect to='/fan/dashboard' />;
   }
