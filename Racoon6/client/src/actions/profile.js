@@ -52,7 +52,7 @@ export const getProfiles = () => async (dispatch) => {
   //dispatch({ type: CLEAR_PROFILE });
 
   try {
-    const res = await api.get('/profile');
+    const res = await api.get('/profiles');
 
     dispatch({
       type: GET_PROFILES,
