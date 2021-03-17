@@ -23,7 +23,6 @@ const Album = ({ album, deleteAlbum }) => {
 
   const albums = album.map((a) => (
     <ul key={a._id}>
-      {/* <div className='Album'> */}
       <div className='ui three column grid'>
         <div className='ui segment'>
           <div style={{ marginBottom: '15px' }}>{a.name}</div>

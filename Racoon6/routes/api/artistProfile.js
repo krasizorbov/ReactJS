@@ -284,4 +284,17 @@ router.delete('/album/:album_id', auth, async (req, res) => {
     return res.status(500).json({ msg: 'Server error' });
   }
 });
+
+// route    GET api/profile
+// desc     Get all profiles
+// access   Public
+router.get('/', async (req, res) => {
+  try {
+    const profiles = await Profile.find().populate('artist', ['name']);
+    res.json(profiles);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 module.exports = router;
