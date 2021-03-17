@@ -16,16 +16,39 @@ import {
 export const getCurrentProfile = () => async (dispatch) => {
   try {
     const res = await api.get('/profile/artist');
+
     dispatch({
       type: GET_PROFILE,
       payload: res.data,
     });
-  } catch (err) {
-    console.log(err);
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
+  } catch (error) {
+    // console.log(err);
+    // dispatch({
+    //   type: PROFILE_ERROR,
+    //   payload: { msg: err.response.statusText, status: err.response.status },
+    // });
+
+    console.log(error);
+    if (error.response) {
+      console.log('--------------------------------------------------');
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    } else if (error.request) {
+      console.log('*************************');
+
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js
+      console.log(error.request);
+    } else {
+      console.log('++++++++++++++++++++++++');
+      // Something happened in setting up the request that triggered an Error
+      console.log('Error', error.message);
+    }
+    console.log(error.config);
   }
 };
 
@@ -168,8 +191,8 @@ export const deleteAlbum = (id) => async (dispatch) => {
 // Delete Cloudinary Track Data
 export const deleteCloudinaryTrack = async (artPublicId, audioPublicId) => {
   if (window.confirm('Are you sure? This can NOT be undone!')) {
+    const data = [{ public_id: artPublicId }, { public_id: audioPublicId }];
     try {
-      const data = [{ public_id: artPublicId }, { public_id: audioPublicId }];
       await api
         .post('/cloudinary', data)
         .then((res) => console.log('Data send'))
