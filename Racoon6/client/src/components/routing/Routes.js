@@ -27,7 +27,6 @@ const Routes = () => {
           path='/artist/dashboard'
           component={ArtistDashboard}
         />
-
         <PrivateRoute exact path='/fan/dashboard' component={FanDashboard} />
         <PrivateRoute exact path='/create-profile' component={ProfileForm} />
         <PrivateRoute
@@ -35,15 +34,11 @@ const Routes = () => {
           path='/artist/edit-profile'
           component={ProfileForm}
         />
-
         <PrivateRoute exact path='/artist/add-track' component={AddTrack} />
-
         <PrivateRoute exact path='/artist/add-album' component={AddAlbum} />
 
         {/* <Route exact path='/profiles' component={Profiles} />
-        
         <Route exact path='/profile/:id' component={Profile} />
-        <PrivateRoute exact path='/add-education' component={AddEducation} />
         <PrivateRoute exact path='/posts' component={Posts} />
         <PrivateRoute exact path='/posts/:id' component={Post} /> */}
         <Route component={NotFound} />

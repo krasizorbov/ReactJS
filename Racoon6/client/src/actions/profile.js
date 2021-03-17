@@ -167,28 +167,32 @@ export const deleteAlbum = (id) => async (dispatch) => {
 
 // Delete Cloudinary Track Data
 export const deleteCloudinaryTrack = async (artPublicId, audioPublicId) => {
-  try {
-    const data = [{ public_id: artPublicId }, { public_id: audioPublicId }];
-    await api
-      .post('/cloudinary', data)
-      .then((res) => console.log('Data send'))
-      .catch((err) => console.log(err.data));
-  } catch (err) {
-    console.log(err);
+  if (window.confirm('Are you sure? This can NOT be undone!')) {
+    try {
+      const data = [{ public_id: artPublicId }, { public_id: audioPublicId }];
+      await api
+        .post('/cloudinary', data)
+        .then((res) => console.log('Data send'))
+        .catch((err) => console.log(err.data));
+    } catch (err) {
+      console.log(err);
+    }
   }
 };
 
 // Delete Cloudinary Album Data
 export const deleteCloudinaryAlbum = async (artPublicId, tracks) => {
-  const data = tracks.map((t) => ({ public_id: t.audioPublicId }));
-  data.push({ public_id: artPublicId });
-  try {
-    await api
-      .post('/cloudinary', data)
-      .then((res) => console.log('Data send'))
-      .catch((err) => console.log(err.data));
-  } catch (err) {
-    console.log(err);
+  if (window.confirm('Are you sure? This can NOT be undone!')) {
+    const data = tracks.map((t) => ({ public_id: t.audioPublicId }));
+    data.push({ public_id: artPublicId });
+    try {
+      await api
+        .post('/cloudinary', data)
+        .then((res) => console.log('Data send'))
+        .catch((err) => console.log(err.data));
+    } catch (err) {
+      console.log(err);
+    }
   }
 };
 
