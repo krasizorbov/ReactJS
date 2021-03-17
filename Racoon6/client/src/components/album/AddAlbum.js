@@ -48,7 +48,6 @@ const AddAlbum = ({ addAlbum, history }) => {
   };
 
   const onChangeTrackName = (e, index) => {
-    console.log(index);
     const list = [...inputList];
     list[index]['name'] = e.target.value;
     setInputList(list);

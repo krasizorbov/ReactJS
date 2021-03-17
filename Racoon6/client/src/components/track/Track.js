@@ -3,37 +3,41 @@ import { Link } from 'react-router-dom';
 import ReactAudioPlayer from 'react-audio-player';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { deleteCloudinary, deleteTrack } from '../../actions/profile';
+import { deleteCloudinaryTrack, deleteTrack } from '../../actions/profile';
 
 const Track = ({ track, deleteTrack }) => {
   const tracks = track.map((t) => (
     <ul key={t._id}>
-      <li className='reframe'>
-        <div>{t.name}</div>
-        <div className='crop' style={{ marginTop: '15px' }}>
-          <img src={t.art} alt='Not Found' />
+      <div className='ui three column grid'>
+        <div className='ui segment'>
+          <li className='reframe'>
+            <div>{t.name}</div>
+            <div className='crop' style={{ marginTop: '15px' }}>
+              <img src={t.art} alt='Not Found' />
+            </div>
+          </li>
+          <li>
+            <div style={{ marginTop: '15px' }}>
+              <ReactAudioPlayer src={t.audio} autoPlay={false} controls />
+            </div>
+          </li>
         </div>
-      </li>
-      <li>
-        <div style={{ marginTop: '15px' }}>
-          <ReactAudioPlayer src={t.audio} autoPlay={false} controls />
-        </div>
-      </li>
+      </div>
       <div
         className='dash-buttons'
-        style={{ marginTop: '15px', marginBottom: '20px' }}
+        style={{ marginTop: '30px', marginBottom: '30px', marginLeft: '30px' }}
       >
         <button
           onClick={() => {
             deleteTrack(t._id);
-            deleteCloudinary(t.artPublicId, t.audioPublicId);
+            deleteCloudinaryTrack(t.artPublicId, t.audioPublicId);
           }}
           className='btn btn-danger'
         >
           Delete
         </button>
         <Link to='/edit-track' className='btn btn-light'>
-          <i className='fas fa-file-audio text-primary' /> Edit Track
+          <i className='fas fa-file-audio text-primary' /> Edit
         </Link>
         <Link to='/buy-track' className='btn btn-light'>
           <i className='fas fa-file-audio text-primary' /> Buy
@@ -44,7 +48,7 @@ const Track = ({ track, deleteTrack }) => {
 
   return (
     <Fragment>
-      <h2 className='my-2'>My Tracks</h2>
+      <h3 className='my-2'>My Tracks</h3>
       <div>{tracks}</div>
     </Fragment>
   );
@@ -53,7 +57,7 @@ const Track = ({ track, deleteTrack }) => {
 Track.propTypes = {
   track: PropTypes.array.isRequired,
   deleteTrack: PropTypes.func.isRequired,
-  deleteCloudinary: PropTypes.func.isRequired,
+  deleteCloudinaryTrack: PropTypes.func.isRequired,
 };
 
-export default connect(null, { deleteTrack, deleteCloudinary })(Track);
+export default connect(null, { deleteTrack, deleteCloudinaryTrack })(Track);

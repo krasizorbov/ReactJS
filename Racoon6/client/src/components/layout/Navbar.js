@@ -16,9 +16,7 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout }) => {
   const artistLinks = (
     <ul>
       <li>
-        {isArtist === true ? (
-          <Link to={`/${user.bandName}/dashboard`}>Dashboard</Link>
-        ) : null}
+        <Link to='/artist/dashboard'>Dashboard</Link>
       </li>
       <li>
         <Link to='/' onClick={logout}>

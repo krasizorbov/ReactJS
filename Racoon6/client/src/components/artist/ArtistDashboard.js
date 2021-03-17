@@ -26,9 +26,8 @@ const Dashboard = ({
       {profile !== null ? (
         <Fragment>
           <DashboardActions />
-          <Track track={profile.tracks} />
           <Album album={profile.albums} />
-
+          <Track track={profile.tracks} />
           <div className='my-2'>
             <button className='btn btn-danger' onClick={() => deleteAccount()}>
               <i className='fas fa-user-minus' /> Delete My Account

@@ -274,7 +274,7 @@ router.delete('/album/:album_id', auth, async (req, res) => {
     const foundProfile = await Profile.findOne({ artist: req.user.id });
 
     foundProfile.albums = foundProfile.albums.filter(
-      (t) => a._id.toString() !== req.params.album_id
+      (a) => a._id.toString() !== req.params.album_id
     );
 
     await foundProfile.save();

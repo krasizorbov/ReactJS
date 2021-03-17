@@ -1,11 +1,9 @@
 import { useState, useEffect, Fragment } from 'react';
 import Player from '../multiplayer/Player';
-//import './index.css';
 import { Link } from 'react-router-dom';
-//import ReactAudioPlayer from 'react-audio-player';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { deleteCloudinary, deleteAlbum } from '../../actions/profile';
+import { deleteCloudinaryAlbum, deleteAlbum } from '../../actions/profile';
 
 const Album = ({ album, deleteAlbum }) => {
   const songs = []; //To Do useState()
@@ -25,8 +23,10 @@ const Album = ({ album, deleteAlbum }) => {
 
   const albums = album.map((a) => (
     <ul key={a._id}>
-      <div className='Album'>
+      {/* <div className='Album'> */}
+      <div className='ui three column grid'>
         <div className='ui segment'>
+          <div style={{ marginBottom: '15px' }}>{a.name}</div>
           <Player
             currentSongIndex={currentSongIndex}
             setCurrentSongIndex={setCurrentSongIndex}
@@ -38,26 +38,27 @@ const Album = ({ album, deleteAlbum }) => {
               albumName: a.name,
             }))}
           />
-        </div>
-        <div className='details-img'>
-          <img src={a.art} alt='' />
+
+          <div className='crop' style={{ marginTop: '15px' }}>
+            <img src={a.art} alt='' />
+          </div>
         </div>
       </div>
       <div
         className='dash-buttons'
-        style={{ marginTop: '15px', marginBottom: '20px' }}
+        style={{ marginTop: '30px', marginBottom: '30px', marginLeft: '30px' }}
       >
         <button
           onClick={() => {
-            //deleteAlbum(a._id);
-            //deleteCloudinary(a.artPublicId, t.audioPublicId);
+            deleteAlbum(a._id);
+            deleteCloudinaryAlbum(a.artPublicId, a.tracks);
           }}
           className='btn btn-danger'
         >
           Delete
         </button>
         <Link to='/edit-track' className='btn btn-light'>
-          <i className='fas fa-file-audio text-primary' /> Edit Album
+          <i className='fas fa-file-audio text-primary' /> Edit
         </Link>
         <Link to='/buy-track' className='btn btn-light btn-sm'>
           <i className='fas fa-file-audio text-primary' /> Buy
@@ -68,6 +69,7 @@ const Album = ({ album, deleteAlbum }) => {
 
   return (
     <Fragment>
+      <h3 className='my-2'>My Albums</h3>
       <div>{albums}</div>
     </Fragment>
   );
@@ -76,6 +78,6 @@ const Album = ({ album, deleteAlbum }) => {
 Album.propTypes = {
   album: PropTypes.array.isRequired,
   deleteAlbum: PropTypes.func.isRequired,
-  deleteCloudinary: PropTypes.func.isRequired,
+  deleteCloudinaryAlbum: PropTypes.func.isRequired,
 };
-export default connect(null, { deleteAlbum, deleteCloudinary })(Album);
+export default connect(null, { deleteAlbum, deleteCloudinaryAlbum })(Album);
