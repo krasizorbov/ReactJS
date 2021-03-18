@@ -47,6 +47,8 @@ router.post(
 
     // destructure the request
     const {
+      art,
+      artPublicId,
       location,
       website,
       email,
@@ -76,6 +78,8 @@ router.post(
       genreTags,
       location,
       email,
+      art,
+      artPublicId,
       ...rest,
     };
 

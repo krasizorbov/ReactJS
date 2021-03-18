@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import config from '../../config/default.json';
 import { createProfile, getCurrentProfile } from '../../actions/profile';
 
 const initialState = {
@@ -12,6 +13,8 @@ const initialState = {
   genre: '',
   genreTags: '',
   paypalEmail: '',
+  art: null,
+  artPublicId: null,
   youtube: '',
   facebook: '',
   instagram: '',
@@ -26,6 +29,16 @@ const ProfileForm = ({
   const [formData, setFormData] = useState(initialState);
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
+
+  const [disableImageUploadBtn, setDisableImageUploadBtn] = useState(true);
+  const [disableImageFileBtn, setDisableImageFileBtn] = useState(false);
+
+  const [imageUploadCheck, setImageCkeckUploadState] = useState({
+    classImageCheckName: '',
+    imageUploaded: '',
+  });
+
+  const { classImageCheckName, imageUploaded } = imageUploadCheck;
 
   useEffect(() => {
     if (!profile) getCurrentProfile();
@@ -51,6 +64,8 @@ const ProfileForm = ({
     genre,
     genreTags,
     paypalEmail,
+    art,
+    artPublicId,
     youtube,
     facebook,
     instagram,
@@ -58,6 +73,39 @@ const ProfileForm = ({
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onChangeImage = (e) => {
+    setFormData({ ...formData, art: e.target.files[0] });
+    setDisableImageUploadBtn((prevState) => !prevState);
+  };
+
+  const onUploadImage = () => {
+    setDisableImageUploadBtn({ disableImageUploadBtn: true });
+    setDisableImageFileBtn({ disableImageFileBtn: true });
+    const form = new FormData();
+    form.append('file', art);
+    form.append('upload_preset', config.upload_preset);
+    const options = {
+      method: 'POST',
+      body: form,
+    };
+
+    return fetch(config.cloudinaryURL, options)
+      .then((res) => res.json())
+      .then((res) => {
+        setFormData({
+          ...formData,
+          art: res.secure_url,
+          artPublicId: res.public_id,
+        });
+        setImageCkeckUploadState({
+          ...imageUploadCheck,
+          classImageCheckName: 'fas fa-check',
+          imageUploaded: 'Done!',
+        });
+      })
+      .catch((err) => console.log(err));
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -76,6 +124,42 @@ const ProfileForm = ({
       </div>
       <div className='ui center aligned three column grid'>
         <form className='form' onSubmit={onSubmit}>
+          <div className='form-group'>
+            <div className='ui segment'>
+              <label>* Art - 1400 x 1400 pixels minimum</label>
+              <div>
+                <input
+                  type='file'
+                  name='file'
+                  disabled={disableImageFileBtn}
+                  onChange={onChangeImage}
+                />
+                <button
+                  type='button'
+                  className='btn btn-primary my-1'
+                  disabled={disableImageUploadBtn}
+                  onClick={onUploadImage}
+                >
+                  Upload Image
+                </button>
+                <i className={classImageCheckName}> {imageUploaded}</i>
+              </div>
+              <div>
+                {imageUploaded && (
+                  <img
+                    src={art}
+                    style={{
+                      marginLeft: '-175px',
+                      marginTop: '50px',
+                      width: '100px',
+                      height: '100px',
+                    }}
+                    alt='art'
+                  />
+                )}
+              </div>
+            </div>
+          </div>
           <div className='form-group'>
             <label>* Artist/Band name</label>
             <input

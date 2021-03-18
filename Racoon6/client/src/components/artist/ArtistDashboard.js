@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import './Image.css';
 import DashboardActions from './DashboardActions';
 import Track from '../track/Track';
 import Album from '../album/Album';
@@ -26,6 +27,11 @@ const Dashboard = ({
       {profile !== null ? (
         <Fragment>
           <DashboardActions />
+          <div className='ui three column grid'>
+            <div className='crop'>
+              <img style={{ width: 400 }} src={profile.art} alt='' />
+            </div>
+          </div>
           <Album album={profile.albums} />
           <Track track={profile.tracks} />
           <div className='my-2'>

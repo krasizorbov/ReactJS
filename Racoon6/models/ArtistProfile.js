@@ -29,6 +29,12 @@ const ArtistProfileSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  art: {
+    type: String,
+  },
+  artPublicId: {
+    type: String,
+  },
   social: {
     youtube: {
       type: String,
