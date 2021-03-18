@@ -58,7 +58,7 @@ const Navbar = ({ auth: { isAuthenticated, user }, logout }) => {
         </Link>
       </h1>
       <div>
-        <h4>Discover amazing new music and support the artists who make it.</h4>
+        <h4>Discover amazing new music</h4>
       </div>
       <Fragment>
         {isArtist === true

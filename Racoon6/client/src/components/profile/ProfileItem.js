@@ -4,19 +4,15 @@ import PropTypes from 'prop-types';
 
 const ProfileItem = ({
   profile: {
-    artist: { _id, name },
+    artist: { _id },
     bandName,
+    art,
   },
 }) => {
   return (
     <div className='profile bg-light'>
-      <img
-        src='https://image.shutterstock.com/image-photo/music-band-group-silhouette-perform-260nw-1505018000.jpg'
-        alt=''
-        className='round-img'
-      />
+      <img src={art} alt='' className='round-img' />
       <div>
-        {/* <h2>{name}</h2> */}
         <h3>{bandName}</h3>
         <Link to={`/profile/${_id}`} className='btn btn-primary'>
           View Profile
