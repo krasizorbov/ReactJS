@@ -14,7 +14,7 @@ import ProfileForm from '../artist/ProfileForm';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
 
-const Routes = () => {
+const Routes = (props) => {
   return (
     <section className='container'>
       <Alert />
@@ -37,7 +37,7 @@ const Routes = () => {
         <PrivateRoute exact path='/artist/add-track' component={AddTrack} />
         <PrivateRoute exact path='/artist/add-album' component={AddAlbum} />
 
-        {/* <Route exact path='/profiles' component={Profiles} />
+        {/* 
         <Route exact path='/profile/:id' component={Profile} />
         <PrivateRoute exact path='/posts' component={Posts} />
         <PrivateRoute exact path='/posts/:id' component={Post} /> */}

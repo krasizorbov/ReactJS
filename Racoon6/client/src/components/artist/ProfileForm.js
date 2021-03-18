@@ -65,7 +65,6 @@ const ProfileForm = ({
     genreTags,
     paypalEmail,
     art,
-    artPublicId,
     youtube,
     facebook,
     instagram,

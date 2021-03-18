@@ -8,7 +8,7 @@ import Track from '../track/Track';
 import Album from '../album/Album';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 
-const Dashboard = ({
+const ArtistDashboard = ({
   getCurrentProfile,
   deleteAccount,
   auth: { user },
@@ -52,7 +52,7 @@ const Dashboard = ({
   );
 };
 
-Dashboard.propTypes = {
+ArtistDashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   deleteAccount: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
@@ -65,5 +65,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(
-  Dashboard
+  ArtistDashboard
 );
