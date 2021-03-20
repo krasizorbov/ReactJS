@@ -1,0 +1,21 @@
+.crop {
+  position: relative;
+  width: 400px !important;
+  height: 250px;
+  overflow: hidden;
+}
+.crop img {
+  position: relative;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  max-width: 100%;
+  width: 600;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.crop img.landscape {
+  height: 250;
+  width: 800 !important;
+}
