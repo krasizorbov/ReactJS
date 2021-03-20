@@ -1,9 +1,8 @@
 import React, { Fragment, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
-import './Image.css';
+//import './Image.css';
 import Track from './Track';
 import Album from './Album';
 import { getProfileById } from '../../actions/profile';
