@@ -14,7 +14,7 @@ const ProfileItem = ({
       <img src={art} alt='' className='round-img' />
       <div>
         <h3>{bandName}</h3>
-        <Link to={`/profile/${_id}`} className='btn btn-primary'>
+        <Link to={`/profiles/${_id}`} className='btn btn-primary'>
           View Profile
         </Link>
       </div>

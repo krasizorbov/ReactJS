@@ -33,8 +33,7 @@ export const getCurrentProfile = () => async (dispatch) => {
 // Get profile by ID
 export const getProfileById = (userId) => async (dispatch) => {
   try {
-    const res = await api.get(`/profile/artist/${userId}`);
-
+    const res = await api.get(`/profiles/${userId}`);
     dispatch({
       type: GET_PROFILE,
       payload: res.data,

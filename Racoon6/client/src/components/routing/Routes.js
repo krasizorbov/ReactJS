@@ -9,6 +9,7 @@ import FanDashboard from '../fan/FanDashboard';
 import AddTrack from '../track/AddTrack';
 import AddAlbum from '../album/AddAlbum';
 import ProfileForm from '../artist/ProfileForm';
+import Releases from '../release/Releases';
 // import Posts from '../posts/Posts';
 // import Post from '../post/Post';
 import NotFound from '../layout/NotFound';
@@ -36,9 +37,10 @@ const Routes = (props) => {
         />
         <PrivateRoute exact path='/artist/add-track' component={AddTrack} />
         <PrivateRoute exact path='/artist/add-album' component={AddAlbum} />
+        <Route exact path='/profiles/:id' component={Releases} />
 
         {/* 
-        <Route exact path='/profile/:id' component={Profile} />
+        <Route exact path='/profiles/:id' component={Profile} />
         <PrivateRoute exact path='/posts' component={Posts} />
         <PrivateRoute exact path='/posts/:id' component={Post} /> */}
         <Route component={NotFound} />
