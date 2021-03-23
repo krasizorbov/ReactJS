@@ -252,10 +252,15 @@ router.post(
         let trackToUpdate = profile.tracks.find(
           (t) => t._id.toString() == req.params.track_id.toString()
         );
-        const index = profile.tracks.indexOf(trackToUpdate);
-        profile.tracks.splice(index, 1, track);
-        await profile.save();
-        return res.json(track);
+        if (trackToUpdate) {
+          const index = profile.tracks.indexOf(trackToUpdate);
+          profile.tracks.splice(index, 1, track);
+          await profile.save();
+        } else {
+          return res.status(404).json({ msg: 'Track not found' });
+        }
+
+        return res.json(profile);
       }
     } catch (error) {
       console.error(error.message);
