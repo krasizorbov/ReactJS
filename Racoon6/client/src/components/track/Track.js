@@ -36,7 +36,7 @@ const Track = ({ track, deleteTrack }) => {
         >
           Delete
         </button>
-        <Link to='/edit-track' className='btn btn-light'>
+        <Link to={`/artist/edit-track/${t._id}`} className='btn btn-light'>
           <i className='fas fa-file-audio text-primary' /> Edit
         </Link>
         <Link to='/buy-track' className='btn btn-light'>

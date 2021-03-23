@@ -37,7 +37,11 @@ const Routes = (props) => {
           component={ProfileForm}
         />
         <PrivateRoute exact path='/artist/add-track' component={AddTrack} />
-        <PrivateRoute exact path='/artist/edit-track' component={EditTrack} />
+        <PrivateRoute
+          exact
+          path='/artist/edit-track/:id'
+          component={EditTrack}
+        />
         <PrivateRoute exact path='/artist/add-album' component={AddAlbum} />
         <Route exact path='/profiles/:id' component={Releases} />
 
