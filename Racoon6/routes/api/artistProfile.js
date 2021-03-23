@@ -42,7 +42,6 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-
     // destructure the request
     const {
       art,
@@ -198,6 +197,68 @@ router.put(
       res.json(profile);
     } catch (err) {
       console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
+
+// route    POST api/profile/artist/track
+// des      Update artist track
+// access   Private
+router.post(
+  '/track/:track_id',
+  auth,
+  check('name', 'Track name is required').not().isEmpty(),
+  check('price', 'Price is required')
+    .not()
+    .isEmpty()
+    .isNumeric()
+    .withMessage('Number is required'),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const {
+      name,
+      price,
+      about,
+      art,
+      artPublicId,
+      audio,
+      audioPublicId,
+    } = req.body;
+
+    const track = {
+      name,
+      price,
+      about,
+      art,
+      artPublicId,
+      audio,
+      audioPublicId,
+    };
+
+    try {
+      let profile = await Profile.findOne({
+        artist: req.user.id,
+      });
+      if (!profile) {
+        return res
+          .status(400)
+          .json({ msg: 'There is no profile for this user' });
+      } else {
+        let trackToUpdate = profile.tracks.filter(
+          (t) => t._id.toString() === req.params.track_id
+        );
+        const index = profile.tracks.indexOf(trackToUpdate);
+        profile.tracks.splice(index, 1, track);
+        await profile.save();
+        return res.json(track);
+      }
+    } catch (error) {
+      console.error(error.message);
       res.status(500).send('Server Error');
     }
   }
