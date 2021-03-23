@@ -202,7 +202,7 @@ router.put(
   }
 );
 
-// route    POST api/profile/artist/track
+// route    POST api/profile/artist/track/track_id
 // des      Update artist track
 // access   Private
 router.post(
@@ -249,8 +249,8 @@ router.post(
           .status(400)
           .json({ msg: 'There is no profile for this user' });
       } else {
-        let trackToUpdate = profile.tracks.filter(
-          (t) => t._id.toString() === req.params.track_id
+        let trackToUpdate = profile.tracks.find(
+          (t) => t._id.toString() == req.params.track_id.toString()
         );
         const index = profile.tracks.indexOf(trackToUpdate);
         profile.tracks.splice(index, 1, track);
