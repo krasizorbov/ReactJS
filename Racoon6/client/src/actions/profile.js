@@ -123,6 +123,31 @@ export const addTrack = (formData, history) => async (dispatch) => {
   }
 };
 
+// Update track
+export const updateTrack = (formData, trackId) => async (dispatch) => {
+  try {
+    const res = await api.post(`/profile/artist/track/${trackId}`, formData);
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data,
+    });
+
+    dispatch(setAlert('Track Updated'));
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
 // Add Album
 export const addAlbum = (formData, history) => async (dispatch) => {
   try {
