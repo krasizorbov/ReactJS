@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import config from '../../config/default.json';
-import { getCurrentProfile } from '../../actions/profile';
-import { updateTrack } from '../../actions/profile';
+import { updateTrack, getCurrentProfile } from '../../actions/profile';
 
 const initialState = {
   name: '',
@@ -138,7 +137,7 @@ const EditTrack = ({
           className='form'
           onSubmit={(e) => {
             e.preventDefault();
-            updateTrack(formData, history);
+            updateTrack(formData, match.params.id, history);
           }}
         >
           <div className='form-group'>
