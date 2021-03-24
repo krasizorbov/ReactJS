@@ -133,7 +133,7 @@ export const updateTrack = (formData, trackId) => async (dispatch) => {
       payload: res.data,
     });
 
-    dispatch(setAlert('Track Updated'));
+    dispatch(setAlert('Track Updated', 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
 
