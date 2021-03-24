@@ -1,21 +1,46 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import config from '../../config/default.json';
+import { getCurrentProfile } from '../../actions/profile';
 import { updateTrack } from '../../actions/profile';
 
-const EditTrack = ({ updateTrack, history }) => {
-  const [formData, setFormData] = useState({
-    name: '',
-    price: '',
-    about: '',
-    art: null,
-    artPublicId: null,
-    audio: null,
-    audioPublicId: null,
-  });
+const initialState = {
+  name: '',
+  price: '',
+  about: '',
+  art: null,
+  artPublicId: null,
+  audio: null,
+  audioPublicId: null,
+};
 
+const EditTrack = ({
+  getCurrentProfile,
+  match,
+  profile: { profile, loading },
+  updateTrack,
+  history,
+}) => {
+  const [formData, setFormData] = useState(initialState);
+
+  useEffect(() => {
+    if (!profile) getCurrentProfile();
+    if (!loading && profile) {
+      let trackToUpdate = profile.tracks.find(
+        (t) => t._id.toString() === match.params.id.toString()
+      );
+      if (trackToUpdate) {
+        const trackData = { ...initialState };
+        for (const key in trackToUpdate) {
+          if (key in trackData) trackData[key] = trackToUpdate[key];
+        }
+        setFormData(trackData);
+      } else {
+      }
+    }
+  }, [getCurrentProfile, loading, profile, match.params.id]);
   const [disableImageUploadBtn, setDisableImageUploadBtn] = useState(true);
   const [disableImageFileBtn, setDisableImageFileBtn] = useState(false);
   const [disableAudioUploadBtn, setDisableAudioUploadBtn] = useState(true);
@@ -208,6 +233,14 @@ const EditTrack = ({ updateTrack, history }) => {
 
 EditTrack.propTypes = {
   updateTrack: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
 };
 
-export default connect(null, { updateTrack })(EditTrack);
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+});
+
+export default connect(mapStateToProps, { updateTrack, getCurrentProfile })(
+  EditTrack
+);
