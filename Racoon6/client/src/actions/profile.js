@@ -124,7 +124,7 @@ export const addTrack = (formData, history) => async (dispatch) => {
 };
 
 // Update track
-export const updateTrack = (formData, trackId) => async (dispatch) => {
+export const updateTrack = (formData, trackId, history) => async (dispatch) => {
   try {
     const res = await api.post(`/profile/artist/track/${trackId}`, formData);
 
@@ -132,7 +132,7 @@ export const updateTrack = (formData, trackId) => async (dispatch) => {
       type: GET_PROFILE,
       payload: res.data,
     });
-
+    history.push('/artist/dashboard');
     dispatch(setAlert('Track Updated', 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
@@ -161,6 +161,31 @@ export const addAlbum = (formData, history) => async (dispatch) => {
     dispatch(setAlert('Album Added', 'success'));
 
     history.push('/artist/dashboard');
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Update album
+export const updateAlbum = (formData, albumId, history) => async (dispatch) => {
+  try {
+    const res = await api.post(`/profile/artist/album/${albumId}`, formData);
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data,
+    });
+    history.push('/artist/dashboard');
+    dispatch(setAlert('Album Updated', 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
 

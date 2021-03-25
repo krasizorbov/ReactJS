@@ -9,6 +9,7 @@ import FanDashboard from '../fan/FanDashboard';
 import AddTrack from '../track/AddTrack';
 import EditTrack from '../track/EditTrack';
 import AddAlbum from '../album/AddAlbum';
+import EditAlbum from '../album/EditAlbum';
 import ProfileForm from '../artist/ProfileForm';
 import Releases from '../release/Releases';
 // import Posts from '../posts/Posts';
@@ -43,6 +44,11 @@ const Routes = (props) => {
           component={EditTrack}
         />
         <PrivateRoute exact path='/artist/add-album' component={AddAlbum} />
+        <PrivateRoute
+          exact
+          path='/artist/edit-album/:id'
+          component={EditAlbum}
+        />
         <Route exact path='/profiles/:id' component={Releases} />
 
         {/* 

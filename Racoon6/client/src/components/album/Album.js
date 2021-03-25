@@ -56,10 +56,10 @@ const Album = ({ album, deleteAlbum }) => {
         >
           Delete
         </button>
-        <Link to='/edit-track' className='btn btn-light'>
+        <Link to={`/artist/edit-album/${a._id}`} className='btn btn-light'>
           <i className='fas fa-file-audio text-primary' /> Edit
         </Link>
-        <Link to='/buy-track' className='btn btn-light btn-sm'>
+        <Link to='/buy-album' className='btn btn-light btn-sm'>
           <i className='fas fa-file-audio text-primary' /> Buy
         </Link>
       </div>

@@ -41,6 +41,7 @@ const EditTrack = ({
       }
     }
   }, [getCurrentProfile, loading, profile, match.params.id]);
+
   const [disableImageUploadBtn, setDisableImageUploadBtn] = useState(true);
   const [disableImageFileBtn, setDisableImageFileBtn] = useState(false);
   const [disableAudioUploadBtn, setDisableAudioUploadBtn] = useState(true);
