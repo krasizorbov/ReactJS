@@ -135,6 +135,14 @@ const EditTrack = ({
   return (
     <Fragment>
       <div className='ui center aligned three column grid'>
+        <div>
+          <p className='lead'>
+            <i style={{ marginTop: '25px' }} className='fas fa-user' /> Edit
+            track
+          </p>
+        </div>
+      </div>
+      <div className='ui center aligned three column grid'>
         <form
           className='form'
           onSubmit={(e) => {
