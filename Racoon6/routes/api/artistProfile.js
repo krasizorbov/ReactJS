@@ -259,7 +259,6 @@ router.post(
         } else {
           return res.status(404).json({ msg: 'Track not found' });
         }
-
         return res.json(profile);
       }
     } catch (error) {
@@ -300,12 +299,65 @@ router.put(
 
     try {
       const profile = await Profile.findOne({ artist: req.user.id });
-
       profile.albums.unshift(album);
-
       await profile.save();
-
       res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
+
+// route    POST api/profile/artist/album/albumId
+// des      Update artist album
+// access   Private
+router.post(
+  '/album/:album_id',
+  auth,
+  check('name', 'Album name is required').not().isEmpty(),
+  check('price', 'Price is required')
+    .not()
+    .isEmpty()
+    .isNumeric()
+    .withMessage('Number is required'),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { name, price, about, art, artPublicId, ...tracks } = req.body;
+
+    const album = {
+      name,
+      price,
+      about,
+      art,
+      artPublicId,
+      ...tracks,
+    };
+
+    try {
+      let profile = await Profile.findOne({ artist: req.user.id });
+
+      if (!profile) {
+        return res
+          .status(400)
+          .json({ msg: 'There is no profile for this user' });
+      } else {
+        let albumToUpdate = profile.albums.find(
+          (a) => a._id.toString() == req.params.album_id.toString()
+        );
+        if (albumToUpdate) {
+          const index = profile.albums.indexOf(albumToUpdate);
+          profile.albums.splice(index, 1, album);
+          await profile.save();
+        } else {
+          return res.status(404).json({ msg: 'Album not found' });
+        }
+        return res.json(profile);
+      }
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
