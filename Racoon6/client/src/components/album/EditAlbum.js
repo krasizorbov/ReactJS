@@ -97,6 +97,7 @@ const EditAlbum = ({
     const list = [...inputList];
     list.splice(index, 1);
     setInputList(list);
+    setFormData({ ...formData, tracks: list });
   };
 
   // handle click event of the Add track button
