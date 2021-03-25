@@ -225,7 +225,7 @@ const EditAlbum = ({
                   disabled={disableImageUploadBtn}
                   onClick={onUploadImage}
                 >
-                  Upload Image
+                  Replace
                 </button>
                 <i className={classImageCheckName}> {imageUploaded}</i>
               </div>
@@ -272,7 +272,7 @@ const EditAlbum = ({
                       disabled={x.disableAudioUploadBtn}
                       onClick={(e) => onUploadAudio(e, i)}
                     >
-                      Upload Audio
+                      Replace
                     </button>
                     <i className={x.checkMark}> {x.done}</i>
                     <div>

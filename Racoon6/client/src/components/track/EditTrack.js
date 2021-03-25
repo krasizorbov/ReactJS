@@ -178,7 +178,7 @@ const EditTrack = ({
                   disabled={disableImageUploadBtn}
                   onClick={onUploadImage}
                 >
-                  Upload Image
+                  Replace
                 </button>
                 <i className={classImageCheckName}> {imageUploaded}</i>
               </div>
@@ -216,7 +216,7 @@ const EditTrack = ({
                   disabled={disableAudioUploadBtn}
                   onClick={onUploadAudio}
                 >
-                  Upload Audio
+                  Replace
                 </button>
                 <i className={classAudioCheckName}> {audioUploaded}</i>
               </div>
