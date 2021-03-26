@@ -269,41 +269,39 @@ export const deleteCloudinaryAlbum = async (artPublicId, tracks) => {
 // PayPal Payment
 export const paypal = async () => {
   try {
-    const formData = {
-      intent: 'sale',
-      payer: {
-        payment_method: 'paypal',
-      },
-      redirect_urls: {
-        return_url: 'http://localhost:3000/success',
-        cancel_url: 'http://localhost:3000/cancel',
-      },
-      transactions: [
-        {
-          item_list: {
-            items: [
-              {
-                name: 'Into the void',
-                sku: '001',
-                price: 25.0,
-                currency: 'USD',
-                quantity: 1,
-              },
-            ],
-          },
-          amount: {
-            currency: 'USD',
-            total: 25.0,
-          },
-          description: 'Great Song',
-        },
-      ],
-    };
-
-    const res = await api.post('/pay', formData);
-
-    window.location = res.data.forwardLink;
-    const result = await api.get('/success');
+    // const formData = {
+    //   intent: 'sale',
+    //   payer: {
+    //     payment_method: 'paypal',
+    //   },
+    //   redirect_urls: {
+    //     return_url: 'http://localhost:3000/success',
+    //     cancel_url: 'http://localhost:3000/cancel',
+    //   },
+    //   transactions: [
+    //     {
+    //       item_list: {
+    //         items: [
+    //           {
+    //             name: 'Into the void',
+    //             sku: '001',
+    //             price: 25.0,
+    //             currency: 'USD',
+    //             quantity: 1,
+    //           },
+    //         ],
+    //       },
+    //       amount: {
+    //         currency: 'USD',
+    //         total: 25.0,
+    //       },
+    //       description: 'Great Song',
+    //     },
+    //   ],
+    // };
+    // const res = await api.post('/pay', formData);
+    // window.location = res.data.forwardLink;
+    // res.redirect('/success');
     //console.log(result);
     //history.push(res.data);
     //dispatch(setAlert('Album Updated', 'success'));

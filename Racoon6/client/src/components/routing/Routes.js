@@ -12,6 +12,7 @@ import AddAlbum from '../album/AddAlbum';
 import EditAlbum from '../album/EditAlbum';
 import ProfileForm from '../artist/ProfileForm';
 import Releases from '../release/Releases';
+import Payment from '../paypal/Payment';
 // import Posts from '../posts/Posts';
 // import Post from '../post/Post';
 import NotFound from '../layout/NotFound';
@@ -49,6 +50,7 @@ const Routes = (props) => {
           path='/artist/edit-album/:id'
           component={EditAlbum}
         />
+        <PrivateRoute exact path='/buy-track/' component={Payment} />
         <Route exact path='/profiles/:id' component={Releases} />
 
         {/* 
