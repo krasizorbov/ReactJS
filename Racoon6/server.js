@@ -18,6 +18,7 @@ app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/profiles', require('./routes/api/profiles'));
 app.use('/api/profile/artist', require('./routes/api/artistProfile'));
 app.use('/api/cloudinary', require('./routes/api/cloudinary'));
+app.use('/api/pay', require('./routes/api/paypal'));
 
 const PORT = process.env.PORT || 5000;
 
