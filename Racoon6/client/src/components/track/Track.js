@@ -3,7 +3,11 @@ import { Link } from 'react-router-dom';
 import ReactAudioPlayer from 'react-audio-player';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { deleteCloudinaryTrack, deleteTrack } from '../../actions/profile';
+import {
+  deleteCloudinaryTrack,
+  deleteTrack,
+  paypal,
+} from '../../actions/profile';
 
 const Track = ({ track, deleteTrack }) => {
   const tracks = track.map((t) => (
@@ -39,9 +43,14 @@ const Track = ({ track, deleteTrack }) => {
         <Link to={`/artist/edit-track/${t._id}`} className='btn btn-light'>
           <i className='fas fa-file-audio text-primary' /> Edit
         </Link>
-        <Link to='/buy-track' className='btn btn-light'>
+        <button
+          onClick={() => {
+            paypal();
+          }}
+          className='btn btn-light'
+        >
           <i className='fas fa-file-audio text-primary' /> Buy
-        </Link>
+        </button>
       </div>
     </ul>
   ));
@@ -57,7 +66,10 @@ const Track = ({ track, deleteTrack }) => {
 Track.propTypes = {
   track: PropTypes.array.isRequired,
   deleteTrack: PropTypes.func.isRequired,
+  paypal: PropTypes.func.isRequired,
   deleteCloudinaryTrack: PropTypes.func.isRequired,
 };
 
-export default connect(null, { deleteTrack, deleteCloudinaryTrack })(Track);
+export default connect(null, { deleteTrack, paypal, deleteCloudinaryTrack })(
+  Track
+);

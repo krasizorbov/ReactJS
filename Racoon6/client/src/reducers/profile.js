@@ -6,11 +6,11 @@ import {
   GET_PROFILES,
   GET_REPOS,
   NO_REPOS,
+  GET_PAYPAL,
 } from '../actions/types';
 
 const initialState = {
   profile: null,
-  //repos: [],
   loading: true,
   error: {},
 };
@@ -43,7 +43,11 @@ function profileReducer(state = initialState, action) {
       return {
         ...state,
         profile: null,
-        //repos: []
+      };
+    case GET_PAYPAL:
+      return {
+        paypalUri: payload,
+        loading: false,
       };
     case GET_REPOS:
       return {
