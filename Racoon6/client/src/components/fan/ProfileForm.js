@@ -176,7 +176,7 @@ const ProfileForm = ({
           </div>
 
           <input type='submit' className='btn btn-primary my-1' />
-          <Link to='/artist/dashboard' className='btn btn-light my-1'>
+          <Link to='/fan/dashboard' className='btn btn-light my-1'>
             Go Back
           </Link>
         </form>

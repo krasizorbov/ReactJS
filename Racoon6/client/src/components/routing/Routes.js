@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 import RegisterArtist from '../auth/RegisterArtist';
 import RegisterFan from '../auth/RegisterFan';
@@ -19,7 +21,15 @@ import Payment from '../paypal/Payment';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
 
-const Routes = (props) => {
+const Routes = ({ auth: { isAuthenticated, user } }) => {
+  let isArtist = '';
+  if (user !== null) {
+    if (user.bandName !== undefined && isAuthenticated) {
+      isArtist = true;
+    } else {
+      isArtist = false;
+    }
+  }
   return (
     <section className='container'>
       <Alert />
@@ -33,12 +43,16 @@ const Routes = (props) => {
           component={ArtistDashboard}
         />
         <PrivateRoute exact path='/fan/dashboard' component={FanDashboard} />
-        <PrivateRoute exact path='/create-profile' component={ProfileForm} />
-        <PrivateRoute
-          exact
-          path='/create-fan-profile'
-          component={FanProfileForm}
-        />
+        {isArtist ? (
+          <PrivateRoute exact path='/create-profile' component={ProfileForm} />
+        ) : (
+          <PrivateRoute
+            exact
+            path='/create-fan-profile'
+            component={FanProfileForm}
+          />
+        )}
+
         <PrivateRoute
           exact
           path='/artist/edit-profile'
@@ -69,4 +83,11 @@ const Routes = (props) => {
   );
 };
 
-export default Routes;
+Routes.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+export default connect(mapStateToProps)(Routes);
