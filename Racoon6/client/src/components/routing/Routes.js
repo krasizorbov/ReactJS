@@ -11,6 +11,7 @@ import EditTrack from '../track/EditTrack';
 import AddAlbum from '../album/AddAlbum';
 import EditAlbum from '../album/EditAlbum';
 import ProfileForm from '../artist/ProfileForm';
+import FanProfileForm from '../fan/ProfileForm';
 import Releases from '../release/Releases';
 import Payment from '../paypal/Payment';
 // import Posts from '../posts/Posts';
@@ -33,6 +34,11 @@ const Routes = (props) => {
         />
         <PrivateRoute exact path='/fan/dashboard' component={FanDashboard} />
         <PrivateRoute exact path='/create-profile' component={ProfileForm} />
+        <PrivateRoute
+          exact
+          path='/create-fan-profile'
+          component={FanProfileForm}
+        />
         <PrivateRoute
           exact
           path='/artist/edit-profile'

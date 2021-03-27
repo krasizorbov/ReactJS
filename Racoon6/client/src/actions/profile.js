@@ -84,7 +84,7 @@ export const getProfiles = () => async (dispatch) => {
   }
 };
 
-// Create or update profile
+// Create or update artist profile
 export const createProfile = (formData, history, edit = false) => async (
   dispatch
 ) => {
@@ -100,6 +100,37 @@ export const createProfile = (formData, history, edit = false) => async (
 
     if (!edit) {
       history.push('/artist/dashboard');
+    }
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Create or update fan profile
+export const createFanProfile = (formData, history, edit = false) => async (
+  dispatch
+) => {
+  try {
+    const res = await api.post('/profile/fan', formData);
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data,
+    });
+
+    dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
+
+    if (!edit) {
+      history.push('/fan/dashboard');
     }
   } catch (err) {
     const errors = err.response.data.errors;
