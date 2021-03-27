@@ -27,7 +27,6 @@ const Releases = ({ getProfileById, match, profile: { profile } }) => {
           <Track track={profile.tracks} />
         </Fragment>
       )}
-      ;
     </Fragment>
   );
 };

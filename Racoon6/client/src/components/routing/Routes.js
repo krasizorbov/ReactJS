@@ -22,12 +22,10 @@ import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
 
 const Routes = ({ auth: { isAuthenticated, user } }) => {
-  let isArtist = '';
+  let isArtist = false;
   if (user !== null) {
     if (user.bandName !== undefined && isAuthenticated) {
       isArtist = true;
-    } else {
-      isArtist = false;
     }
   }
   return (
