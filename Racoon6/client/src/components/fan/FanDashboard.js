@@ -4,17 +4,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 //import './Image.css';
 import DashboardActions from './DashboardActions';
-import { getCurrentProfile, deleteAccount } from '../../actions/profile';
+import { getCurrentFanProfile, deleteAccount } from '../../actions/profile';
 
 const FanDashboard = ({
-  getCurrentProfile,
+  getCurrentFanProfile,
   deleteAccount,
   auth: { user },
   profile: { profile },
 }) => {
   useEffect(() => {
-    getCurrentProfile();
-  }, [getCurrentProfile]);
+    getCurrentFanProfile();
+  }, [getCurrentFanProfile]);
 
   return (
     <Fragment>
@@ -51,7 +51,7 @@ const FanDashboard = ({
 };
 
 FanDashboard.propTypes = {
-  getCurrentProfile: PropTypes.func.isRequired,
+  getCurrentFanProfile: PropTypes.func.isRequired,
   deleteAccount: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
@@ -62,6 +62,7 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(
-  FanDashboard
-);
+export default connect(mapStateToProps, {
+  getCurrentFanProfile,
+  deleteAccount,
+})(FanDashboard);
