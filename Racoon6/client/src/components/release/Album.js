@@ -24,7 +24,7 @@ const Album = ({ album }) => {
     <ul key={a._id}>
       <div className='ui three column grid'>
         <div className='ui segment'>
-          <div style={{ marginBottom: '15px' }}>{a.name}</div>
+          <div style={{ marginBottom: '20px' }}>Album - {a.name}</div>
           <Player
             currentSongIndex={currentSongIndex}
             setCurrentSongIndex={setCurrentSongIndex}
@@ -37,14 +37,14 @@ const Album = ({ album }) => {
             }))}
           />
 
-          <div className='crop' style={{ marginTop: '15px' }}>
+          <div className='crop' style={{ marginTop: -50, marginBottom: -40 }}>
             <img src={a.art} alt='' />
           </div>
         </div>
       </div>
       <div
         className='dash-buttons'
-        style={{ marginTop: '30px', marginBottom: '30px', marginLeft: '30px' }}
+        style={{ marginTop: '30px', marginBottom: '30px', marginLeft: '-15px' }}
       >
         <Link to='/buy-track' className='btn btn-light btn-sm'>
           <i className='fas fa-file-audio text-primary' /> Buy

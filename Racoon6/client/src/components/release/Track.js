@@ -10,8 +10,8 @@ const Track = ({ track }) => {
       <div className='ui three column grid'>
         <div className='ui segment'>
           <li className='reframe'>
-            <div>{t.name}</div>
-            <div className='crop' style={{ marginTop: '15px' }}>
+            <div>Track - {t.name}</div>
+            <div className='crop' style={{ marginTop: -40, marginBottom: -20 }}>
               <img src={t.art} alt='Not Found' />
             </div>
           </li>
@@ -24,7 +24,7 @@ const Track = ({ track }) => {
       </div>
       <div
         className='dash-buttons'
-        style={{ marginTop: '30px', marginBottom: '30px', marginLeft: '30px' }}
+        style={{ marginTop: '30px', marginBottom: '30px', marginLeft: '-15px' }}
       >
         <Link to='/buy-track' className='btn btn-light'>
           <i className='fas fa-file-audio text-primary' /> Buy
