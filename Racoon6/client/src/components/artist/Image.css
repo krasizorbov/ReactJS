@@ -1,6 +1,6 @@
 .crop {
   position: relative;
-  width: 400px !important;
+  width: 600px;
   height: 250px;
   overflow: hidden;
 }
@@ -9,7 +9,7 @@
   margin-top: 15px;
   margin-bottom: 30px;
   max-width: 100%;
-  width: 600;
+  width: 800;
   height: auto;
   top: 50%;
   left: 50%;

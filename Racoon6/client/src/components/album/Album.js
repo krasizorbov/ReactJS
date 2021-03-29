@@ -25,7 +25,7 @@ const Album = ({ album, deleteAlbum }) => {
     <ul key={a._id}>
       <div className='ui three column grid'>
         <div className='ui segment'>
-          <div style={{ marginBottom: '15px' }}>{a.name}</div>
+          <div style={{ marginBottom: '25px' }}>{a.name}</div>
           <Player
             currentSongIndex={currentSongIndex}
             setCurrentSongIndex={setCurrentSongIndex}
@@ -38,7 +38,7 @@ const Album = ({ album, deleteAlbum }) => {
             }))}
           />
 
-          <div className='crop' style={{ marginTop: '15px' }}>
+          <div className='crop' style={{ marginTop: -50, marginBottom: -40 }}>
             <img src={a.art} alt='' />
           </div>
         </div>

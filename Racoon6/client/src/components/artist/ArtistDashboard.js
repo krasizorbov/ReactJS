@@ -29,7 +29,7 @@ const ArtistDashboard = ({
           <DashboardActions />
           <div className='ui three column grid'>
             <div className='crop'>
-              <img style={{ width: 400 }} src={profile.art} alt='' />
+              <img style={{ width: 600 }} src={profile.art} alt='' />
             </div>
           </div>
           <Album album={profile.albums} />

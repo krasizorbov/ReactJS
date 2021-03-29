@@ -12,7 +12,7 @@ const Track = ({ track, deleteTrack }) => {
         <div className='ui segment'>
           <li className='reframe'>
             <div>{t.name}</div>
-            <div className='crop' style={{ marginTop: '15px' }}>
+            <div className='crop' style={{ marginTop: -40, marginBottom: -20 }}>
               <img src={t.art} alt='Not Found' />
             </div>
           </li>

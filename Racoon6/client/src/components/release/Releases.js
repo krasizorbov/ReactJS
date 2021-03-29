@@ -9,7 +9,6 @@ import { getProfileById } from '../../actions/profile';
 
 const Releases = ({ getProfileById, match, profile: { profile } }) => {
   useEffect(() => {
-    console.log(match.params.id);
     getProfileById(match.params.id);
   }, [getProfileById, match.params.id]);
 
