@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 const Album = ({ album }) => {
+  console.log(album);
   const songs = []; //To Do useState()
 
   const [currentSongIndex, setCurrentSongIndex] = useState(0);

@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import config from '../../config/default.json';
-import { createFanProfile, getCurrentFanProfile } from '../../actions/profile';
+import {
+  createFanProfile,
+  getCurrentFanProfile,
+} from '../../actions/fanProfile';
 
 const initialState = {
   name: '',
@@ -15,7 +18,7 @@ const initialState = {
 };
 
 const ProfileForm = ({
-  profile: { profile, loading },
+  fanProfile: { fanProfile, loading },
   createFanProfile,
   getCurrentFanProfile,
   history,
@@ -33,14 +36,15 @@ const ProfileForm = ({
   const { classImageCheckName, imageUploaded } = imageUploadCheck;
 
   useEffect(() => {
-    if (!profile) getCurrentFanProfile();
-    if (!loading && profile) {
+    if (!fanProfile) getCurrentFanProfile();
+    if (!loading && fanProfile) {
       const profileData = { ...initialState };
-      for (const key in profile) {
-        if (key in profileData) profileData[key] = profile[key];
+      for (const key in fanProfile) {
+        if (key in profileData) profileData[key] = fanProfile[key];
       }
+      setFormData(profileData);
     }
-  }, [loading, getCurrentFanProfile, profile]);
+  }, [loading, getCurrentFanProfile, fanProfile]);
 
   const { name, location, website, art, about } = formData;
 
@@ -82,7 +86,7 @@ const ProfileForm = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createFanProfile(formData, history, profile ? true : false);
+    createFanProfile(formData, history, fanProfile ? true : false);
   };
 
   return (
@@ -113,7 +117,7 @@ const ProfileForm = ({
                   disabled={disableImageUploadBtn}
                   onClick={onUploadImage}
                 >
-                  Upload Image
+                  Update Image
                 </button>
                 <i className={classImageCheckName}> {imageUploaded}</i>
               </div>
@@ -188,11 +192,11 @@ const ProfileForm = ({
 ProfileForm.propTypes = {
   createFanProfile: PropTypes.func.isRequired,
   getCurrentFanProfile: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
+  fanProfile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  profile: state.profile,
+  fanProfile: state.fanProfile,
 });
 
 export default connect(mapStateToProps, {

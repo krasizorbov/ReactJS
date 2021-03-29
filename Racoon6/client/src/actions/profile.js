@@ -8,7 +8,7 @@ import {
   UPDATE_PROFILE,
   CLEAR_PROFILE,
   ACCOUNT_DELETED,
-  GET_PAYPAL,
+  //GET_PAYPAL,
   //GET_REPOS,
   //NO_REPOS,
 } from './types';
@@ -17,24 +17,6 @@ import {
 export const getCurrentProfile = () => async (dispatch) => {
   try {
     const res = await api.get('/profile/artist');
-
-    dispatch({
-      type: GET_PROFILE,
-      payload: res.data,
-    });
-  } catch (err) {
-    console.log(err);
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
-  }
-};
-
-// Get current fan profile
-export const getCurrentFanProfile = () => async (dispatch) => {
-  try {
-    const res = await api.get('/profile/fan');
 
     dispatch({
       type: GET_PROFILE,
@@ -100,37 +82,6 @@ export const createProfile = (formData, history, edit = false) => async (
 
     if (!edit) {
       history.push('/artist/dashboard');
-    }
-  } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    }
-
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
-  }
-};
-
-// Create or update fan profile
-export const createFanProfile = (formData, history, edit = false) => async (
-  dispatch
-) => {
-  try {
-    const res = await api.post('/profile/fan', formData);
-
-    dispatch({
-      type: GET_PROFILE,
-      payload: res.data,
-    });
-
-    dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
-
-    if (!edit) {
-      history.push('/fan/dashboard');
     }
   } catch (err) {
     const errors = err.response.data.errors;

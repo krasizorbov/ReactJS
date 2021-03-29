@@ -50,12 +50,20 @@ const Routes = ({ auth: { isAuthenticated, user } }) => {
             component={FanProfileForm}
           />
         )}
+        {isArtist ? (
+          <PrivateRoute
+            exact
+            path='/artist/edit-profile'
+            component={ProfileForm}
+          />
+        ) : (
+          <PrivateRoute
+            exact
+            path='/fan/edit-profile'
+            component={FanProfileForm}
+          />
+        )}
 
-        <PrivateRoute
-          exact
-          path='/artist/edit-profile'
-          component={ProfileForm}
-        />
         <PrivateRoute exact path='/artist/add-track' component={AddTrack} />
         <PrivateRoute
           exact

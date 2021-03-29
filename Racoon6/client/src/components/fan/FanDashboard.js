@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 //import './Image.css';
 import DashboardActions from './DashboardActions';
-import { getCurrentFanProfile, deleteAccount } from '../../actions/profile';
+import { getCurrentFanProfile, deleteAccount } from '../../actions/fanProfile';
 
 const FanDashboard = ({
   getCurrentFanProfile,
   deleteAccount,
   auth: { user },
-  profile: { profile },
+  fanProfile: { fanProfile },
 }) => {
   useEffect(() => {
     getCurrentFanProfile();
@@ -22,12 +22,12 @@ const FanDashboard = ({
       <p className='lead'>
         <i className='fas fa-user' /> Welcome {user && user.name}
       </p>
-      {profile !== null ? (
+      {fanProfile !== null ? (
         <Fragment>
           <DashboardActions />
           <div className='ui three column grid'>
             <div className='crop'>
-              <img style={{ width: 400 }} src={profile.art} alt='' />
+              <img style={{ width: 400 }} src={fanProfile.art} alt='' />
             </div>
           </div>
           {/* <Album album={profile.albums} />
@@ -54,12 +54,12 @@ FanDashboard.propTypes = {
   getCurrentFanProfile: PropTypes.func.isRequired,
   deleteAccount: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired,
+  fanProfile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  profile: state.profile,
+  fanProfile: state.fanProfile,
 });
 
 export default connect(mapStateToProps, {
