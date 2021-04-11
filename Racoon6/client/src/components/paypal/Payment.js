@@ -1,6 +1,4 @@
-import React, { useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
 
 export default class Payment extends React.Component {
